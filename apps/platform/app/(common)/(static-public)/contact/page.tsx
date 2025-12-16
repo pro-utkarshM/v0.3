@@ -17,9 +17,9 @@ import Link from "next/link";
 import { appConfig } from "~/project.config";
 
 export const metadata: Metadata = {
-  title: "About & Contact",
+  title: "Contact & Support | Nerdy Network",
   description:
-    "Learn about nith.eu.org and app.nith.eu.org. Get in touch with the team and understand the mission.",
+    "Get in touch with the Nerdy Network team. Report bugs, suggest features, or join the chaos.",
   robots: { index: true, follow: true },
 };
 
@@ -35,18 +35,18 @@ export default function AboutPage() {
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-6">
           <Badge variant="outline" className="rounded-full py-1.5 px-4 border-primary/20 bg-primary/5 text-primary">
             <Globe className="mr-2 size-3" />
-            The Digital Campus Initiative
+            The Internet's Messiest Corner
           </Badge>
           
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground">
-            Built for Students, <br/>
-            <span className="bg-linear-to-l from-teal-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% bg-clip-text text-transparent">By Students.</span>
+            Built for Builders, <br/>
+            <span className="bg-gradient-to-l from-teal-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% bg-clip-text text-transparent">By Builders.</span>
           </h1>
           
           <p className="text-lg text-muted-foreground leading-relaxed">
-            <strong>nith.eu.org</strong> is an open-source operating system for the 
-            NIT Hamirpur community. We bridge the gap between academic resources 
-            and student life through modern technology.
+            <strong>Nerdy Network</strong> is the operating system for student developers. 
+            We bridge the gap between solo coding and community chaos through 
+            gamification and collaboration.
           </p>
         </div>
 
@@ -57,9 +57,9 @@ export default function AboutPage() {
                  <AlertTriangle className="size-5" />
               </div>
               <div>
-                 <h3 className="text-base font-semibold text-foreground mb-1">Unofficial Project</h3>
+                 <h3 className="text-base font-semibold text-foreground mb-1">Community Driven</h3>
                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    This platform is an <strong>independent initiative</strong>. We are not affiliated with, endorsed by, or officially representing the <strong>National Institute of Technology, Hamirpur</strong>. All institute trademarks belong to their respective owners.
+                    This platform is a <strong>student-run initiative</strong>. We are here to help you build cool stuff, find teammates, and ship projects. If you find a bug, don't panic—it's a feature.
                  </p>
               </div>
            </div>
@@ -72,23 +72,23 @@ export default function AboutPage() {
                 <ContactCard 
                     icon={Mail}
                     title="Email Support"
-                    desc="For general queries & help"
+                    desc="For partnerships & help"
                     action="Send Email"
-                    href="mailto:contact@nith.eu.org"
+                    href={`mailto:${appConfig.contact || "hello@nerdynet.co"}`}
                 />
                 <ContactCard 
                     icon={Github}
                     title="GitHub"
                     desc="Report bugs or contribute"
                     action="View Repo"
-                    href="https://github.com/kanakkholwal/college-ecosystem"
+                    href={appConfig.githubRepo || "https://github.com"}
                 />
                 <ContactCard 
                     icon={MessageSquare}
                     title="Feedback"
                     desc="Suggest new features"
                     action="Open Form"
-                    href={appConfig.contact}
+                    href={appConfig.contact || "#"}
                 />
             </div>
         </div>
@@ -96,21 +96,20 @@ export default function AboutPage() {
         {/* --- MISSION SECTION --- */}
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div className="space-y-6">
-                <h2 className="text-3xl font-bold tracking-tight">Our Mission</h2>
+                <h2 className="text-3xl font-bold tracking-tight">Why we exist</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                    We believe information should be accessible, and student tools should be delightful to use. 
-                    Our goal is to replace outdated systems with a unified, transparent ecosystem.
+                    We believe that building alone is boring. Our goal is to create a digital playground where you can find your co-founder, earn points for shipping code, and actually enjoy the grind.
                 </p>
                 
                 <div className="space-y-4">
-                    <FeatureRow Icon={Users} title="Community First">
-                        Empowering collaboration through shared resources and open communication channels.
+                    <FeatureRow Icon={Users} title="Find Your Tribe">
+                        Swipe to match with teammates who share your tech stack and vision.
                     </FeatureRow>
-                    <FeatureRow Icon={Code2} title="Open Source">
-                        Complete transparency. Our code is open for anyone to audit, improve, or learn from.
+                    <FeatureRow Icon={Code2} title="Open Source Core">
+                        Complete transparency. Our code is open for anyone to audit, fork, or improve.
                     </FeatureRow>
-                    <FeatureRow Icon={HeartHandshake} title="Student Utility">
-                        Solving real problems—from finding a syllabus to checking classroom availability.
+                    <FeatureRow Icon={HeartHandshake} title="No Gatekeeping">
+                        Whether you're a senior dev or writing your first Hello World, you belong here.
                     </FeatureRow>
                 </div>
             </div>
@@ -127,7 +126,7 @@ export default function AboutPage() {
         {/* --- FOOTER DISCLAIMER --- */}
         <div className="text-center max-w-2xl mx-auto space-y-6">
             <p className="text-sm text-muted-foreground italic">
-                {'"'}The goal is not to replace the institute{"'"}s authority, but to enhance the student{"'"}s capability.{'"'}
+                {'"'}Code is poetry, but deployment is actual labor.{'"'}
             </p>
             <div className="pt-4">
                  <AdUnit adSlot="multiplex" key="contact-page-ad-footer" />

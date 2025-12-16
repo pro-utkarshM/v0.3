@@ -178,7 +178,7 @@ const NavTabs = React.forwardRef<HTMLDivElement, NavTabsProps>(
                   ) : null}
                   {navLink?.isNew ? (
                     <span className="inline-flex items-center justify-center px-1.5 py-0.5 text-[0.6rem] font-medium text-primary bg-primary/10 rounded-full">
-                      New
+                      upcoming
                     </span>
                   ) : null}
                 </div>

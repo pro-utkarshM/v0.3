@@ -70,63 +70,6 @@ export type rawLinkType = {
 // --- Quick Links (Dashboard Home) ---
 export const quick_links: RouterCardLink[] = [
   {
-    href: "/resources",
-    title: "Resources",
-    description: "Explore articles, guides, and past archives.",
-    allowed_roles: ["*"],
-    Icon: PiBookOpenTextDuotone,
-    category: "general",
-  },
-  {
-    href: "/benefits",
-    title: "Student Benefits",
-    description: "Exclusive deals via your Student ID.",
-    Icon: PiGiftDuotone,
-    allowed_roles: ["*"],
-    category: "general",
-    isNew: true,
-  },
-  {
-    href: "/results",
-    title: "Academic Results",
-    description: "Performance analytics and semester grades.",
-    allowed_roles: ["*"],
-    Icon: PiChartLineUpDuotone,
-    category: "academic",
-  },
-  {
-    href: "/syllabus",
-    title: "Syllabus",
-    description: "Curriculum tracking and course structures.",
-    Icon: PiScrollDuotone,
-    allowed_roles: ["*"],
-    category: "academic",
-  },
-  {
-    href: "/classroom-availability",
-    title: "Classroom Finder",
-    description: "Live occupancy status of lecture halls.",
-    Icon: PiChalkboardTeacherDuotone,
-    allowed_roles: ["*"],
-    category: "academic",
-  },
-  {
-    href: "/schedules",
-    title: "Time Tables",
-    description: "Daily class schedules and faculty timings.",
-    Icon: PiCalendarCheckDuotone,
-    allowed_roles: ["*"],
-    category: "academic",
-  },
-  {
-    href: "/academic-calendar",
-    title: "Academic Calendar",
-    description: "Yearly schedule of exams and holidays.",
-    Icon: PiCalendarDuotone,
-    allowed_roles: ["*"],
-    category: "academic",
-  },
-  {
     title: "Community",
     href: "/community",
     Icon: PiUsersThreeDuotone,
@@ -149,15 +92,6 @@ export const quick_links: RouterCardLink[] = [
     description: "Vote on campus opinions and surveys.",
     allowed_roles: ["*"],
     category: "community",
-  },
-  {
-    title: "Whisper Room",
-    href: "/whisper-room",
-    description: "Anonymous confessions and thoughts.",
-    Icon: PiGhostDuotone,
-    category: "community",
-    allowed_roles: ["student"],
-    isNew: true,
   },
 ];
 
@@ -185,25 +119,6 @@ export const sidebar_links: rawLinkType[] = [
     ],
   },
   {
-    title: "Results & Data",
-    icon: PiBankDuotone, // Represents a data bank
-    path: "/result",
-    allowed_roles: [ROLES_ENUMS.ADMIN],
-    category: "metrics",
-    items: [
-      {
-        title: "Web Scraping",
-        path: "/scraping",
-        allowed_roles: [ROLES_ENUMS.ADMIN],
-      },
-      {
-        title: "Import Excel",
-        path: "/import",
-        allowed_roles: [ROLES_ENUMS.ADMIN],
-      },
-    ],
-  },
-  {
     title: "Events",
     icon: PiCalendarPlusDuotone,
     path: "/events",
@@ -216,85 +131,6 @@ export const sidebar_links: rawLinkType[] = [
         allowed_roles: [ROLES_ENUMS.ADMIN],
       },
     ],
-  },
-  {
-    title: "Courses",
-    icon: PiBooksDuotone,
-    path: "/courses",
-    category: "view",
-    allowed_roles: [
-      ROLES_ENUMS.ADMIN,
-      ROLES_ENUMS.FACULTY,
-      ROLES_ENUMS.HOD,
-      ROLES_ENUMS.CR,
-    ],
-    items: [
-      {
-        title: "Create Course",
-        path: "/create",
-        allowed_roles: [ROLES_ENUMS.ADMIN],
-      },
-    ],
-  },
-  {
-    title: "Schedules",
-    icon: PiCalendarCheckDuotone,
-    path: "/schedules",
-    category: "view",
-    allowed_roles: [
-      ROLES_ENUMS.ADMIN,
-      ROLES_ENUMS.FACULTY,
-      ROLES_ENUMS.HOD,
-      ROLES_ENUMS.CR,
-    ],
-    items: [
-      {
-        title: "Create Schedule",
-        path: "/create",
-        allowed_roles: [ROLES_ENUMS.ADMIN],
-      },
-    ],
-  },
-  {
-    title: "Attendance",
-    icon: PiUserCheckDuotone,
-    path: "/attendance-personal",
-    category: "view",
-    allowed_roles: [ROLES_ENUMS.STUDENT],
-  },
-  {
-    title: "Gate Pass",
-    icon: PiTicketDuotone,
-    path: "/outpass",
-    category: "view",
-    allowed_roles: [ROLES_ENUMS.STUDENT],
-  },
-  {
-    title: "Facilities",
-    icon: PiDoorDuotone,
-    path: "/rooms",
-    category: "view",
-    allowed_roles: [
-      ROLES_ENUMS.ADMIN,
-      ROLES_ENUMS.FACULTY,
-      ROLES_ENUMS.HOD,
-      ROLES_ENUMS.CR,
-    ],
-    items: [
-      {
-        title: "Add Room",
-        path: "/new",
-        allowed_roles: [ROLES_ENUMS.ADMIN],
-      },
-    ],
-  },
-  {
-    title: "Hostels",
-    icon: PiBuildingsDuotone,
-    path: "/hostels",
-    category: "view",
-    allowed_roles: [ROLES_ENUMS.ADMIN, ROLES_ENUMS.CHIEF_WARDEN],
-    items: [],
   },
   {
     title: "Settings",
@@ -416,11 +252,11 @@ export const getNavLinks = (user?: Session["user"]): NavLink[] => {
 
   }
   // if(process.env.NODE_ENV !== "production"){
-if (!linksByRole.some(l => l.title === "Whisper Room")) {
+if (!linksByRole.some(l => l.title === "Findr")) {
       linksByRole.push({
-        title: "Whisper Room",
-        href: "/whisper-room",
-        description: "Anonymous discussion forum for students.",
+        title: "Findr",
+        href: "/findr",
+        description: "Find your people.",
         Icon: PiGhostDuotone,
         category: "community",
         allowed_roles: ["student"],

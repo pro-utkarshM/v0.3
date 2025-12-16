@@ -19,11 +19,4 @@ export const titlesMap = new Map<
       description: "Track and manage all your activities on the platform",
     },
   ],
-  [
-    "/student/outpass",
-    {
-      title: "Outpass Request Portal",
-      description: "Request and manage your outpass requests",
-    },
-  ],
 ]);

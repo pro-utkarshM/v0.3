@@ -73,7 +73,7 @@ export default async function HomePage() {
                 Your Ecosystem
               </h2>
               <p className="text-lg text-muted-foreground mt-1 max-w-2xl text-balance">
-                Access results, manage attendance, and find resources instantly.
+                what we serve now, Code. Create. Collaborate. Repeat.
               </p>
             </div>
           </div>
@@ -101,13 +101,13 @@ export default async function HomePage() {
         <StaggerChildrenContainer className="space-y-12 pb-16" id="testimonials">
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary/10 text-primary hover:bg-primary/20">
-              <TrendingUp className="w-3 h-3 mr-1" /> trusted by students
+              <TrendingUp className="w-3 h-3 mr-1" /> trusted by live long students
             </div>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
               What your peers are saying
             </h2>
             <p className="text-muted-foreground text-lg">
-              Hear how the College Ecosystem is simplifying campus life for thousands of students.
+              Hear how the nerd move.
             </p>
           </div>
           <AnimatedTestimonials data={testimonialsContent} />

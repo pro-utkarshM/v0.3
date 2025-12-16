@@ -1,34 +1,24 @@
 "use client";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { ButtonLink } from "@/components/utils/link";
 import { cn } from "@/lib/utils";
-import { motion, useInView, Variants } from "framer-motion";
+import { motion, useInView, Variants, AnimatePresence } from "framer-motion";
 import {
-  ArrowUpRight,
-  BookOpen,
+  ArrowRight,
+  BrainCircuit,
   Code2,
-  Cpu,
-  Database,
-  Eye,
-  GitFork,
-  Github,
+  Flame,
   Globe,
-  Layers,
-  ShieldCheck,
-  Star,
+  HeartHandshake,
+  LayoutGrid,
+  Rocket,
+  Sword,
+  Trophy,
   Users,
-  Zap
+  Zap,
+  ChevronDown
 } from "lucide-react";
-import { useTheme } from "next-themes";
-import Image from "next/image";
-import { useRef } from "react";
-import { appConfig } from "~/project.config";
+import { useRef, useState } from "react";
+import Link from "next/link";
 
 // --- ANIMATION VARIANTS ---
 const fadeInUp: Variants = {
@@ -38,39 +28,26 @@ const fadeInUp: Variants = {
 
 const stagger: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
+  visible: { transition: { staggerChildren: 0.1 } },
 };
 
-// --- TYPES ---
-interface AboutPageProps {
-  contributors: { name: string; username: string; avatar: string; contributions: number }[];
-  stats: { visitors: number; stars: number; forks: number; contributors: number };
-}
-
-export default function AboutPage({ contributors, stats }: AboutPageProps) {
-  const { resolvedTheme } = useTheme();
+export default function AboutPage() {
   const heroRef = useRef(null);
-  const valuesRef = useRef(null);
-  const techRef = useRef(null);
+  const missionRef = useRef(null);
+  const featuresRef = useRef(null);
   const faqRef = useRef(null);
 
   const heroIn = useInView(heroRef, { once: true });
-  const valuesIn = useInView(valuesRef, { once: true });
-  const techIn = useInView(techRef, { once: true });
+  const missionIn = useInView(missionRef, { once: true });
+  const featuresIn = useInView(featuresRef, { once: true });
   const faqIn = useInView(faqRef, { once: true });
 
-  const techStack = [
-    { name: "Next.js Core", icon: Globe, desc: "Server-side rendering & app router." },
-    { name: "TypeScript", icon: Code2, desc: "Strict type safety across the stack." },
-    { name: "Tailwind CSS", icon: Cpu, desc: "Atomic, utility-first styling engine." },
-    { name: "Postgres & Mongo", icon: Database, desc: "Hybrid relational & document storage." },
-  ];
-
   return (
-    <div className="flex flex-col gap-20 pb-20 overflow-hidden">
+    <div className="flex flex-col gap-24 pb-20 overflow-hidden bg-background text-foreground">
+      
       {/* --- HERO SECTION --- */}
       <section ref={heroRef} className="relative pt-24 pb-12 lg:pt-32 lg:pb-20">
-        {/* Background Decor (Subtle Grid) */}
+        {/* Background Decor */}
         <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
         <div className="container mx-auto px-4 text-center">
@@ -82,12 +59,12 @@ export default function AboutPage({ contributors, stats }: AboutPageProps) {
           >
             {/* Pill Badge */}
             <motion.div variants={fadeInUp} className="flex justify-center">
-              <span className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-background/50 px-3 py-1 text-xs font-medium text-muted-foreground backdrop-blur-sm">
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-medium text-primary backdrop-blur-sm">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                 </span>
-                v2.0 System Active
+                The Network is Live
               </span>
             </motion.div>
 
@@ -96,9 +73,9 @@ export default function AboutPage({ contributors, stats }: AboutPageProps) {
               variants={fadeInUp}
               className="text-5xl lg:text-7xl font-bold tracking-tight text-foreground text-balance"
             >
-              The Digital Infrastructure for <br />
-              <span className="bg-linear-to-l from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% bg-clip-text text-transparent">
-                Modern Campuses.
+              The Internet's Messiest, <br />
+              <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Nerdiest Corner.
               </span>
             </motion.h1>
 
@@ -107,147 +84,122 @@ export default function AboutPage({ contributors, stats }: AboutPageProps) {
               variants={fadeInUp}
               className="mx-auto max-w-2xl text-lg text-muted-foreground leading-relaxed text-balance"
             >
-              An open-source ecosystem integrating academic results, real-time resource management,
-              and student utilities into one unified operating system.
+              We are a community for student builders who talk to their laptops like they're alive.
+              Code, create, collaborate, and compete for glory.
             </motion.p>
 
-            {/* Buttons */}
+            {/* Buttons (Standard HTML/Tailwind to avoid missing component errors) */}
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <ButtonLink
-                href={appConfig.githubRepo}
-                variant="rainbow"
-                size="lg"
-                target="_blank"
-                className="h-12 px-8 rounded-full text-base"
+              <Link 
+                href="/register"
+                className="inline-flex h-12 items-center justify-center rounded-full bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
               >
-                <Github className="mr-2 size-4" /> Star on GitHub
-              </ButtonLink>
-              <ButtonLink
-                href={content.wiki_url}
-                variant="outline"
-                size="lg"
-                target="_blank"
-                className="h-12 px-8 rounded-full border-border/50 text-base hover:bg-muted/50"
+                <Zap className="mr-2 size-4" /> Start Building
+              </Link>
+              <Link 
+                href="/manifesto"
+                className="inline-flex h-12 items-center justify-center rounded-full border border-input bg-background/50 backdrop-blur-md px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground"
               >
-                <BookOpen className="mr-2 size-4" /> Documentation
-              </ButtonLink>
+                <BrainCircuit className="mr-2 size-4" /> Read the Manifesto
+              </Link>
             </motion.div>
 
-            {/* Stats Row (Social Proof) */}
+            {/* Static Stats Row */}
             <motion.div
               variants={fadeInUp}
               className="grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-border/40 pt-12 mt-12"
             >
-              <StatItem label="Total Impressions" value={stats.visitors.toLocaleString()} icon={Eye} />
-              <StatItem label="GitHub Stars" value={stats.stars.toString()} icon={Star} />
-              <StatItem label="Contributors" value={stats.contributors.toString()} icon={Users} />
-              <StatItem label="Forks" value={stats.forks.toString()} icon={GitFork} />
+              <StatItem label="Builders" value="500+" icon={Users} />
+              <StatItem label="Projects Shipped" value="120+" icon={Rocket} />
+              <StatItem label="Houses" value="4" icon={Trophy} />
+              <StatItem label="Lines of Code" value="∞" icon={Code2} />
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* --- VALUES / BENTO GRID --- */}
-      <section ref={valuesRef} className="container mx-auto px-4">
+      {/* --- MISSION / PHILOSOPHY --- */}
+      <section ref={missionRef} className="container mx-auto px-4">
         <motion.div
           initial="hidden"
-          animate={valuesIn ? "visible" : "hidden"}
+          animate={missionIn ? "visible" : "hidden"}
           variants={stagger}
           className="space-y-6"
         >
           <div className="flex flex-col items-center text-center space-y-2 mb-10">
-            <h2 className="text-3xl font-semibold tracking-tight">Core Principles</h2>
-            <p className="text-muted-foreground">Built on a foundation of transparency and utility.</p>
+            <h2 className="text-3xl font-semibold tracking-tight">How It Works</h2>
+            <p className="text-muted-foreground">Stop waiting for "someday" and start building today.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <BentoCard
-              title="Open Architecture"
-              desc="Complete transparency. Our codebase is open for audit, ensuring security and community-driven improvements."
-              icon={ShieldCheck}
-              className="md:col-span-1"
+              title="Find Your Co-Founder"
+              desc="Swipe through profiles of fellow builders. Match with people who share your vision and tech stack. No more solo dev depression."
+              icon={HeartHandshake}
+              className="md:col-span-1 border-pink-500/20 bg-pink-500/5 hover:border-pink-500/40"
+              iconColor="text-pink-500"
             />
             <BentoCard
-              title="Unified Ecosystem"
-              desc="Breaking down silos. We connect disparate campus services—results, hostels, and events—into a single seamless interface."
-              icon={Layers}
-              className="md:col-span-2"
+              title="Gamified Chaos"
+              desc="Get sorted into a House. Earn points for every commit, streak, and launch. Compete on the leaderboard for eternal glory (and maybe swag)."
+              icon={Sword}
+              className="md:col-span-2 border-purple-500/20 bg-purple-500/5 hover:border-purple-500/40"
+              iconColor="text-purple-500"
             />
             <BentoCard
-              title="Community First"
-              desc="Built by students, for students. Every feature is designed to solve real problems faced on campus daily."
-              icon={Users}
-              className="md:col-span-2"
+              title="Build in Public"
+              desc="Your digital lab notebook. Document your journey, post daily updates, and keep your streak alive. Accountability is our love language."
+              icon={Flame}
+              className="md:col-span-2 border-orange-500/20 bg-orange-500/5 hover:border-orange-500/40"
+              iconColor="text-orange-500"
             />
             <BentoCard
-              title="High Performance"
-              desc="Engineered for speed with edge caching and optimized database queries."
-              icon={Zap}
-              className="md:col-span-1"
+              title="Open Source Core"
+              desc="We practice what we preach. The entire platform is open source. Contribute to the tool you use every day."
+              icon={Code2}
+              className="md:col-span-1 border-blue-500/20 bg-blue-500/5 hover:border-blue-500/40"
+              iconColor="text-blue-500"
             />
           </div>
         </motion.div>
       </section>
 
       {/* --- TECH STACK --- */}
-      <section ref={techRef} className="container mx-auto px-4 py-12">
+      <section ref={featuresRef} className="container mx-auto px-4 py-12">
         <motion.div
           initial="hidden"
-          animate={techIn ? "visible" : "hidden"}
+          animate={featuresIn ? "visible" : "hidden"}
           variants={stagger}
-          className="border-y border-border/40 py-16"
+          className="border-y border-border/40 py-16 bg-muted/20 -mx-4 px-4 sm:px-8"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center max-w-6xl mx-auto">
             <div className="lg:col-span-4 space-y-6">
-              <h2 className="text-3xl font-semibold tracking-tight">Engineering <br /> Excellence</h2>
+              <h2 className="text-3xl font-semibold tracking-tight">Built specifically <br /> for Builders.</h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                We utilize a modern, type-safe stack designed for reliability.
-                The architecture prioritizes developer experience and maintainability.
+                We didn't just build a social network. We built a productivity engine wrapped in a game.
+                Powered by a modern, type-safe stack.
               </p>
-              <ButtonLink href={content.wiki_url} variant="link" className="px-0 text-primary">
-                View System Architecture <ArrowUpRight className="ml-1 size-4" />
-              </ButtonLink>
+              <Link href="/docs" className="inline-flex items-center text-primary font-medium hover:underline">
+                View System Architecture <ArrowRight className="ml-1 size-4" />
+              </Link>
             </div>
 
             <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
               {techStack.map((tech, i) => (
                 <div
                   key={i}
-                  className="group relative overflow-hidden rounded-xl border border-border/40 bg-background/50 p-6 transition-all hover:border-primary/40 hover:bg-muted/20"
+                  className="group relative overflow-hidden rounded-xl border border-border/40 bg-background p-6 transition-all hover:border-primary/40 hover:shadow-lg"
                 >
-                  {/* Decorative Corner Gradient */}
-                  <div className="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-primary/10 blur-2xl transition-all group-hover:bg-primary/20" />
-
-                  <div className="relative flex flex-col justify-between h-full space-y-4">
-                    {/* Top Row: Icon and Status Badge */}
-                    <div className="flex items-start justify-between">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-border/50 bg-background shadow-sm group-hover:border-primary/30 group-hover:text-primary transition-colors">
-                        <tech.icon className="size-5" />
-                      </div>
-
-                      {/* Tech-specific "Status" badges to make it feel like a system spec */}
-                      <span className="inline-flex items-center rounded-md border border-border/40 bg-muted/50 px-2 py-1 text-[10px] font-medium text-muted-foreground font-mono uppercase tracking-wider">
-                        {i === 0 ? "APP_ROUTER" :
-                          i === 1 ? "STRICT_MODE" :
-                            i === 2 ? "JIT_ENGINE" : "CLUSTERED"}
-                      </span>
-                    </div>
-
-                    {/* Content */}
-                    <div>
-                      <h4 className="font-medium text-foreground text-base mb-1 flex items-center gap-2">
-                        {tech.name}
-                      </h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {tech.desc}
-                      </p>
-                    </div>
-
-                    {/* Bottom decorative line (Progress bar style) */}
-                    <div className="w-full bg-border/30 h-1 rounded-full overflow-hidden mt-auto">
-                      <div className="h-full bg-primary/40 w-[60%] group-hover:w-[80%] transition-all duration-500 ease-out" />
+                  <div className="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-primary/5 blur-2xl transition-all group-hover:bg-primary/10" />
+                  
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-border/50 bg-muted/30 group-hover:text-primary transition-colors">
+                      <tech.icon className="size-5" />
                     </div>
                   </div>
+
+                  <h4 className="font-medium text-foreground text-base mb-1">{tech.name}</h4>
+                  <p className="text-sm text-muted-foreground">{tech.desc}</p>
                 </div>
               ))}
             </div>
@@ -255,162 +207,131 @@ export default function AboutPage({ contributors, stats }: AboutPageProps) {
         </motion.div>
       </section>
 
-      {/* --- CONTRIBUTORS SECTION --- */}
-      <section className="container mx-auto px-4">
-        <div className="group relative overflow-hidden rounded-3xl border border-border/40 bg-background/50 p-8 lg:p-12 transition-all hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5">
-
-          {/* Decorative Background Pattern */}
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(#80808012_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)] opacity-50" />
-
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-
-            {/* Left: Call to Action */}
-            <div className="flex-1 text-center lg:text-left space-y-6">
-              <div className="inline-flex items-center rounded-full border border-border/40 bg-muted/50 px-3 py-1 text-xs font-medium text-muted-foreground backdrop-blur-sm">
-                <Users className="mr-2 size-3 text-primary" />
-                Community Powered
-              </div>
-
-              <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-foreground">
-                Built by <span className="text-primary">{stats.contributors}+</span> Maintainers
-              </h2>
-
-              <p className="text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0">
-                We are building the operating system for our campus, together.
-                Every line of code is transparent, auditable, and crafted by students like you.
-              </p>
-
-              <div className="flex flex-wrap justify-center lg:justify-start gap-3 pt-2">
-                <ButtonLink
-                  href={content.contributing_url}
-                  variant="rainbow"
-                  className="rounded-full h-11 px-6 shadow-md shadow-primary/20"
-                >
-                  <Github className="mr-2 size-4" /> Start Contributing
-                </ButtonLink>
-                <ButtonLink
-                  href={`${appConfig.githubRepo}/graphs/contributors`}
-                  variant="ghost"
-                  className="rounded-full h-11 px-6 text-muted-foreground hover:text-foreground"
-                >
-                  View All Contributors <ArrowUpRight className="ml-2 size-3.5" />
-                </ButtonLink>
-              </div>
-            </div>
-
-            {/* Right: Avatar Grid (The "Roster") */}
-            <div className="flex-1 flex justify-center lg:justify-end">
-              <div className="grid grid-cols-6 gap-2 sm:gap-3 p-4 rounded-2xl bg-background/40 border border-border/30 backdrop-blur-sm shadow-sm">
-                {contributors.slice(0, 17).map((c, i) => (
-                  <a
-                    key={i}
-                    href={`https://github.com/${c.username}`}
-                    target="_blank"
-                    title={c.name}
-                    className="relative group"
-                  >
-                    <div className="relative size-10 sm:size-12 rounded-xl overflow-hidden border border-border/40 transition-all duration-300 group-hover:scale-110 group-hover:shadow-md group-hover:border-primary/50 group-hover:z-10 bg-muted">
-                      <Image
-                        src={c.avatar}
-                        alt={c.name}
-                        width={48}
-                        height={48}
-                        className="object-cover h-full w-full grayscale transition-all duration-300 group-hover:grayscale-0"
-                      />
-                    </div>
-                  </a>
-                ))}
-
-                {/* The "You?" Slot */}
-                <a
-                  href={content.contributing_url}
-                  className="flex flex-col items-center justify-center size-10 sm:size-12 rounded-xl border border-dashed border-border/60 bg-muted/20 text-muted-foreground hover:bg-muted/50 hover:text-primary hover:border-primary/40 transition-colors"
-                  title="This could be you"
-                >
-                  <div className="text-[10px] font-bold">+YOU</div>
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-      {/* --- FAQ SECTION --- */}
+      {/* --- FAQ SECTION (Manual implementation to avoid imports) --- */}
       <section ref={faqRef} className="container mx-auto px-4 max-w-3xl">
         <motion.div
           initial="hidden"
           animate={faqIn ? "visible" : "hidden"}
           variants={stagger}
         >
-          <h2 className="text-2xl font-semibold mb-8 text-center">Frequently Asked Questions</h2>
-          <Accordion type="single" collapsible className="w-full">
+          <div className="text-center mb-10">
+             <h2 className="text-2xl font-semibold mb-2">Frequently Asked Questions</h2>
+             <p className="text-muted-foreground">Everything you need to know about the chaos.</p>
+          </div>
+         
+          <div className="space-y-4">
             {faqItems.map((item, i) => (
-              <AccordionItem key={i} value={`item-${i}`} className="border-border/40">
-                <AccordionTrigger className="text-base font-medium text-foreground/80 hover:text-foreground hover:no-underline py-4">
-                  {item.q}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed pb-4">
-                  {item.a}
-                </AccordionContent>
-              </AccordionItem>
+              <SimpleAccordion key={i} question={item.q} answer={item.a} />
             ))}
-          </Accordion>
+          </div>
         </motion.div>
+      </section>
+
+      {/* --- FOOTER CTA --- */}
+      <section className="container mx-auto px-4 py-12 text-center">
+        <div className="p-8 md:p-12 rounded-3xl bg-gradient-to-b from-muted/50 to-background border border-border/50 relative overflow-hidden">
+             <div className="relative z-10 max-w-2xl mx-auto space-y-6">
+                <h2 className="text-3xl font-bold">Ready to get sorted?</h2>
+                <p className="text-muted-foreground">
+                    The Sorting Hat is waiting. Join a House, find your team, and start building your legacy.
+                </p>
+                <Link 
+                  href="/register"
+                  className="inline-flex h-12 items-center justify-center rounded-full bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
+                >
+                    Join Nerdy Network
+                </Link>
+             </div>
+             {/* Abstract Background */}
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 blur-[100px] rounded-full -z-0" />
+        </div>
       </section>
     </div>
   );
 }
 
-// --- HELPER COMPONENTS ---
+// --- DATA & HELPERS ---
+
+function SimpleAccordion({ question, answer }: { question: string; answer: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="border-b border-border/40">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex w-full items-center justify-between py-4 text-left font-medium transition-all hover:text-primary"
+      >
+        {question}
+        <ChevronDown className={cn("h-4 w-4 transition-transform duration-200", isOpen && "rotate-180")} />
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="overflow-hidden"
+          >
+            <p className="pb-4 text-sm text-muted-foreground leading-relaxed">
+              {answer}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 function StatItem({ label, value, icon: Icon }: { label: string; value: string; icon: any }) {
   return (
-    <div className="flex flex-col items-center space-y-2">
-      <div className="flex items-center gap-2 text-2xl lg:text-3xl font-bold tabular-nums tracking-tight">
+    <div className="flex flex-col items-center space-y-2 group cursor-default">
+      <div className="flex items-center justify-center size-12 rounded-full bg-muted/50 mb-2 group-hover:scale-110 transition-transform duration-300">
+        <Icon className="size-6 text-primary" />
+      </div>
+      <div className="text-2xl lg:text-3xl font-bold tabular-nums tracking-tight">
         {value}
       </div>
-      <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-        <Icon className="size-3.5" /> {label}
+      <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+         {label}
       </div>
     </div>
   );
 }
 
-function BentoCard({ title, desc, icon: Icon, className }: { title: string; desc: string; icon: any; className?: string }) {
+function BentoCard({ title, desc, icon: Icon, className, iconColor }: { title: string; desc: string; icon: any; className?: string, iconColor?: string }) {
   return (
-    <div className={cn("group relative overflow-hidden rounded-xl border border-border/40 bg-card p-6 lg:p-8 hover:border-primary/40 transition-colors", className)}>
-      <div className="mb-4 inline-flex items-center justify-center rounded-lg bg-primary/10 p-2 text-primary">
-        <Icon className="size-5" />
+    <div className={cn("group relative overflow-hidden rounded-xl border border-border/40 bg-card p-6 lg:p-8 transition-all hover:shadow-lg", className)}>
+      <div className="mb-4 inline-flex items-center justify-center rounded-lg bg-background/80 p-3 backdrop-blur-sm border border-border/20">
+        <Icon className={cn("size-5", iconColor || "text-foreground")} />
       </div>
-      <h3 className="mb-2 text-lg font-semibold tracking-tight">{title}</h3>
+      <h3 className="mb-2 text-lg font-bold tracking-tight">{title}</h3>
       <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
     </div>
   );
 }
 
-// --- DATA ---
+const techStack = [
+  { name: "Next.js & React", icon: Globe, desc: "Server-side rendering for lightning fast profiles." },
+  { name: "TypeScript", icon: Code2, desc: "Because we respect ourselves and our codebase." },
+  { name: "Tailwind CSS", icon: LayoutGrid, desc: "Utility-first for when you need to ship UI fast." },
+  { name: "Gamification Engine", icon: Trophy, desc: "Custom logic for House Points and Streaks." },
+];
 
 const faqItems = [
   {
-    q: "What is the mission of this project?",
-    a: "To democratize campus technology. We provide a free, open-source alternative to expensive proprietary ERP systems, built specifically for the needs of our university."
+    q: "Is this just for Computer Science students?",
+    a: "Nope. We have designers, PMs, and hardware geeks. If you build things, you belong here. However, talking to your laptop is a prerequisite."
   },
   {
-    q: "Is the student data secure?",
-    a: "Yes. We strictly follow data privacy guidelines. Personal data is encrypted, and as an open-source project, our security protocols are open for audit by the community."
+    q: "How does the House Sorting work?",
+    a: "You take a personality quiz based on your building style (e.g., 'Do you ship fast and break things?' vs 'Do you architect perfection?'). The algorithm then places you in one of the 4 Houses."
   },
   {
-    q: "How can I request a new feature?",
-    a: "Feature requests are managed via GitHub Issues. You can submit a proposal, and the community will vote and discuss the implementation details."
+    q: "Is this a dating app?",
+    a: "It's a dating app for co-founders. You swipe to find teammates for hackathons or side projects. If you fall in love while debugging, that's on you."
   },
   {
-    q: "Is this platform officially endorsed?",
-    a: "This is a student-run initiative built to supplement existing college infrastructure. While we work closely with student bodies, we operate independently."
+    q: "Does it cost money?",
+    a: "The Nerdy Network is free for students. We might add premium features later for recruiters to find you, but your profile and projects will always be free."
   }
 ];
-
-export const content = {
-  headline: "The Digital Infrastructure for Modern Campuses",
-  wiki_url: "https://github.com/kanakkholwal/college-ecosystem/wiki/Introduction",
-  contributing_url: "https://github.com/kanakkholwal/college-ecosystem/blob/main/CONTRIBUTING.md",
-};

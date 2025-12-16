@@ -75,12 +75,6 @@ export const metadata: Metadata = {
       should_fallback: true,
     },
   },
-  other: {
-    "geo.position": appConfig.seo.geo.position,
-    "geo.placename": appConfig.seo.geo.placename,
-    "geo.region": appConfig.seo.geo.region,
-    "og:locale:alternate": "hi_IN",
-  },
 };
 
 const fontSans = FontSans({
