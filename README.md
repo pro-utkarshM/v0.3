@@ -4,15 +4,6 @@
 
 It includes the core social platform, the manifesto website, and the backend infrastructure that powers everything from House Points to Exam Results.
 
-## Table of Contents
-
-- [The Stack](#the-stack)
-- [Project Architecture](#project-architecture)
-- [Tech Matrix](#tech-matrix)
-- [Deployment Protocol](#deployment-protocol)
-- [How to Contribute](#how-to-contribute)
-- [System Modules](#system-modules)
-
 ## The Stack
 
 - [**The Platform**](https://app.nerdynet.co): A Next.js application where the community lives (Gamification, Social, Utilities).
