@@ -13,6 +13,7 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { getPublicStats } from "~/actions/public";
 import { getSession } from "~/auth/server";
+import { getUserHouse } from "~/actions/user.house";
 import { ROLES_ENUMS } from "~/constants";
 import { getAllResources } from "~/lib/markdown/mdx";
 import { appConfig } from "~/project.config";
@@ -21,7 +22,10 @@ import { FeatureSection, IntroSection } from "./client";
 const RESOURCES_LIMIT = 6;
 
 export default async function HomePage() {
+  const houseState = await getUserHouse();
   const session = await getSession();
+  const isSorted = houseState.isSorted;
+  const house = houseState.house;
   const links = getLinksByRole(session?.user?.other_roles[0] ?? ROLES_ENUMS.STUDENT, quick_links);
 
   if (
@@ -29,6 +33,20 @@ export default async function HomePage() {
     session?.user?.role !== ROLES_ENUMS.ADMIN
   ) {
     return redirect(`/${ROLES_ENUMS.GUARD}`);
+  }
+
+  if (session?.user && !isSorted) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center">
+        <h1 className="text-4xl font-bold mb-4">Welcome, {session.user.name}!</h1>
+        <p className="text-xl mb-8">
+          The Sorting Hat awaits you. You must be sorted into a house to continue your journey.
+        </p>
+        <ButtonLink href="/sorting" className="text-lg px-8 py-4">
+          Begin Sorting Ceremony
+        </ButtonLink>
+      </div>
+    );
   }
 
   const [publicStats, resources] = await Promise.all([
@@ -60,7 +78,7 @@ export default async function HomePage() {
 
       {/* Visual hook: High contrast intro */}
       <BackgroundBeamsWithCollision className="h-auto md:h-auto md:min-h-96 flex flex-col justify-center">
-        <IntroSection user={session?.user} stats={publicStats} />
+        <IntroSection user={session?.user} stats={publicStats} house={house} />
       </BackgroundBeamsWithCollision>
 
       <div className="w-full max-w-(--max-app-width) mx-auto flex flex-col gap-24 py-16">

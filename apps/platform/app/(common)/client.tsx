@@ -65,9 +65,11 @@ const popular_features = [
 export function IntroSection({
   user,
   stats,
+  house,
 }: {
   user: Session["user"] | null | undefined;
   stats: PublicStatsType;
+  house: string | null;
 }) {
   // Flatten stats logic for display
   const displayStats = [
@@ -88,15 +90,20 @@ export function IntroSection({
           
           {/* Greeting / Badge */}
           <StaggerChildrenItem>
-             {user ? (
-                <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                  </span>
-                  {getGreeting()}, {user.name}
-                </div>
-             ) : (
+	             {user ? (
+	                <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary">
+	                  <span className="relative flex h-2 w-2">
+	                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+	                    <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+	                  </span>
+	                  {getGreeting()}, {user.name}
+	                  {house && (
+	                    <Badge variant="secondary" className="ml-2 bg-primary/10 text-primary border-primary/20">
+	                      House {house}
+	                    </Badge>
+	                  )}
+	                </div>
+	             ) : (
                <Badge variant="outline" className="rounded-full py-1.5 px-4 gap-2 border-primary/20 bg-primary/5 text-primary hover:bg-primary/10 transition-colors">
                   <span className="font-bold">New</span> {appConfig.name} 2.0 is live
                </Badge>

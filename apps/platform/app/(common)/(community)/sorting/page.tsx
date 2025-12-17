@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { getUserHouse } from "~/actions/user.house";
 import { useRouter } from "next/navigation";
 import {
   getSortingQuestions,
@@ -34,6 +35,7 @@ export default function SortingPage() {
   >({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [house, setHouse] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
 
@@ -49,7 +51,22 @@ export default function SortingPage() {
         setLoading(false);
       }
     }
-    fetchQuestions();
+    async function checkSortingStatus() {
+      try {
+        const { house: userHouse, isSorted } = await getUserHouse();
+        if (isSorted) {
+          setHouse(userHouse);
+          setLoading(false);
+          return;
+        }
+        fetchQuestions();
+      } catch (error) {
+        toast.error("Failed to check sorting status.");
+        console.error("Error checking sorting status:", error);
+        fetchQuestions(); // Proceed to fetch questions if check fails
+      }
+    }
+    checkSortingStatus();
   }, []);
 
   const handleAnswerChange = (questionId: number, answerId: number) => {
@@ -95,13 +112,33 @@ export default function SortingPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        Loading questions...
+        Loading status...
       </div>
     );
   }
 
-  if (questions.length === 0) {
+  if (house) {
     return (
+      <div className="flex justify-center items-center h-screen">
+        <Card className="w-full max-w-lg shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold text-center">
+              Welcome Home!
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="text-center">
+            <p className="text-xl mb-4">
+              You have already been sorted into:
+            </p>
+            <p className="text-4xl font-extrabold text-primary">
+              {house}
+            </p>
+            <Button onClick={() => router.push("/")} className="mt-6">
+              Go to Dashboard
+            </Button>
+          </CardContent>
+        </Card>
+      </di  if (questions.length === 0) {   return (
       <div className="flex justify-center items-center h-screen">
         No sorting questions available.
       </div>
