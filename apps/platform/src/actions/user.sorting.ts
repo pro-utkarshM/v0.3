@@ -3,7 +3,7 @@
 import { db } from "~/db/connect";
 import { answers, questions, houses } from "~/db/schema";
 import { eq } from "drizzle-orm";
-import { auth } from "~/auth";
+import { getSession } from "~/auth/server";
 import { users } from "~/db/schema/auth-schema";
 
 export async function getSortingQuestions() {
@@ -21,7 +21,7 @@ export async function getSortingQuestions() {
 export async function submitSortingAnswers(
   selectedAnswers: { questionId: number; answerId: number }[]
 ) {
-  const session = await auth();
+  const session = await getSession();
   if (!session?.user?.id) {
     throw new Error("User not authenticated.");
   }
