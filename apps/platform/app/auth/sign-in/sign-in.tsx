@@ -28,9 +28,7 @@ const SignInSchema = z.object({
     .email({ message: "Invalid email address" })
     .min(5)
     .max(100)
-    .refine((val) => val.endsWith(orgConfig.mailSuffix), {
-      message: `Must use organization email (${orgConfig.mailSuffix})`,
-    }),
+,
   password: z.string().min(1, "Password is required"),
   rememberMe: z.boolean().optional().default(false),
 });
