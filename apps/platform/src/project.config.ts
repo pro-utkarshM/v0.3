@@ -80,8 +80,8 @@ export const appConfig = {
     },
   ],
   githubRepo:
-    "https://github.com/nerdynetwork/nerdynetwork-platform",
-  githubUri: "nerdynetwork/nerdynetwork-platform",
+    "https://github.com/pro-utkarshm/v0.2",
+  githubUri: "pro-utkarshm/v0.2",
   socials: {
     twitter: "https://twitter.com/nerdynetworkco?utm_source=app.nith.eu.org&utm_medium=direct&utm_campaign=personal_brand",
     linkedin: "https://linkedin.com/in/nerdynetworkco?utm_source=app.nith.eu.org&utm_medium=direct&utm_campaign=personal_brand",
