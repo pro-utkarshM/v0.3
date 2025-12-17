@@ -26,10 +26,7 @@ const SignUpSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z
     .string()
-    .email()
-    .refine((val) => val.endsWith(orgConfig.mailSuffix), {
-      message: `Must use organization email (${orgConfig.mailSuffix})`,
-    }),
+    .email(),
   password: z
     .string()
     .min(8, "Password must be at least 8 characters")

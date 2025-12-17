@@ -66,8 +66,8 @@ export default async function Footer() {
                   {section.title}
                 </h3>
                 <ul className="flex flex-col gap-3">
-                  {section.links.map((link) => (
-                    <li key={link.href}>
+                  {section.links.map((link,idx) => (
+                    <li key={link.href + idx}>
                       <Link
                         href={link.href}
                         className="text-sm text-muted-foreground transition-colors hover:text-primary hover:underline underline-offset-4"
