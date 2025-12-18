@@ -11,6 +11,8 @@ import PostFooter from "./post-footer";
 
 import AdUnit from "@/components/common/adsense";
 import ShareButton from "@/components/common/share-button";
+import PostActionsMenu from "@/components/common/post-actions-menu";
+import HouseBadge from "@/components/common/house-badge";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ButtonLink } from "@/components/utils/link";
@@ -97,12 +99,13 @@ export default async function CommunityPost(props: Props) {
             </div>
             <span className="font-medium">Back to c/{post.category}</span>
           </Link>
-
-          {isAuthor && (
-            <ButtonLink variant="ghost" size="sm" href={`/community/edit?postId=${post._id}`}>
-              <Edit3 className="size-4 mr-2" /> Edit Post
-            </ButtonLink>
-          )}
+          
+          <PostActionsMenu
+            postId={post._id}
+            initialTitle={post.title}
+            initialContent={post.content}
+            isAuthor={isAuthor}
+          />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
