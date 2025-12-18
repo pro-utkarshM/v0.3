@@ -95,6 +95,7 @@
     "nuqs": "^2.4.3",
     "postcss": "^8.5.6",
     "react": "^19.1.1",
+    "react-activity-calendar": "^3.0.2",
     "react-day-picker": "^9.8.0",
     "react-dom": "^19.1.1",
     "react-dropzone": "^14.3.8",
