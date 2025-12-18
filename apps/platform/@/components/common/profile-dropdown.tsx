@@ -14,7 +14,8 @@ import {
   LayoutGrid,
   LifeBuoy,
   LogOut,
-  ShieldAlert
+  ShieldAlert,
+  User
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -192,6 +193,15 @@ export default function ProfileDropdown({ user }: ProfileDropdownProps) {
             Shortcuts
           </div>
           <div className="grid grid-cols-2 gap-0.5">
+            <Link
+              href="/profile"
+              className="flex items-center justify-between px-2 py-1.5 text-xs font-medium text-muted-foreground rounded-md hover:bg-muted/50 hover:text-foreground transition-colors"
+            >
+              <div className="flex items-center gap-2 whitespace-nowrap">
+                <User className="size-3.5 opacity-70" />
+                My Profile
+              </div>
+            </Link>
             {SUPPORT_LINKS.map((link) => (
               <Link
                 key={link.href}
