@@ -34,8 +34,10 @@ interface ICommunityPost extends Document {
     username: string;
   };
   views: number;
-  likes: string[]; // Updated type from string[] to string[]
-  savedBy: string[]; // Updated type from string[] to string[]
+  likes: string[]; // Deprecated - use upvotes/downvotes
+  upvotes: string[]; // Array of user IDs who upvoted
+  downvotes: string[]; // Array of user IDs who downvoted
+  savedBy: string[];
   updatedAt: Date;
   createdAt: Date;
   house?: 'Gryffindor' | 'Slytherin' | 'Ravenclaw' | 'Hufflepuff';
@@ -48,7 +50,9 @@ const communityPostSchema = new Schema<ICommunityPost>(
     category: { type: String, enum: CATEGORY_TYPES, required: true },
     views: { type: Number, required: true, default: 0 },
     content_json: { type: Object },
-    likes: [String],
+    likes: [String], // Deprecated
+    upvotes: { type: [String], default: [] },
+    downvotes: { type: [String], default: [] },
     savedBy: [String],
     author: {
       id: { type: String, required: true },
@@ -79,6 +83,8 @@ interface ICommunityComment extends Document {
     name: string;
     username: string;
   };
+  upvotes: string[];
+  downvotes: string[];
 }
 
 const communityCommentSchema = new Schema<ICommunityComment>(
@@ -105,6 +111,8 @@ const communityCommentSchema = new Schema<ICommunityComment>(
         default: [],
       },
     ],
+    upvotes: { type: [String], default: [] },
+    downvotes: { type: [String], default: [] },
   },
   {
     timestamps: true,

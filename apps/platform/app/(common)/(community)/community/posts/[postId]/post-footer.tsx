@@ -1,6 +1,7 @@
 "use client";
 
 import ShareButton from "@/components/common/share-button";
+import VoteButtons from "@/components/common/vote-buttons";
 import { AuthActionButton } from "@/components/utils/link";
 import { cn } from "@/lib/utils";
 import {
@@ -52,11 +53,22 @@ export default function PostFooterOptimistic({ post, user, className }: FooterPr
 export function OptimisticFooterActionBar({ post, user }: FooterProps) {
   const [isPending, startTransition] = useTransition();
 
+  // Calculate vote data
+  const upvotes = post.upvotes?.length || 0;
+  const downvotes = post.downvotes?.length || 0;
+  const userVote = user
+    ? post.upvotes?.includes(user.id)
+      ? "upvote" as const
+      : post.downvotes?.includes(user.id)
+      ? "downvote" as const
+      : null
+    : null;
+
   const [optimisticPost, setOptimisticPost] = useOptimistic(
     post,
     (current, action: { type: "toggleLike" | "toggleSave"; userId: string }) => {
       if (action.type === "toggleLike") {
-        const liked = current.likes.includes(action.userId);
+        const liked = current.likes?.includes(action.userId) || false;
         return {
           ...current,
           likes: liked
@@ -103,28 +115,30 @@ export function OptimisticFooterActionBar({ post, user }: FooterProps) {
   return (
     <div className="flex items-center gap-1">
       
-      {/* LIKE BUTTON */}
-      <AuthActionButton
-        variant="ghost"
-        size="sm"
-        authorized={!!user}
-        dialog={{
-          title: "Join the conversation",
-          description: "Sign in to like posts and support authors.",
-        }}
-        onClick={handleLike}
-        className={cn(
-          "group flex items-center gap-1.5 rounded-full px-3 py-1.5 transition-all hover:bg-red-500/10 active:scale-95",
-          isLiked ? "text-red-500" : "text-muted-foreground hover:text-red-500"
-        )}
-      >
-        <Heart 
-            className={cn("size-4 transition-transform group-hover:scale-110", isLiked && "fill-current scale-110")} 
+      {/* VOTE BUTTONS */}
+      {user ? (
+        <VoteButtons
+          itemId={post._id}
+          itemType="post"
+          initialUpvotes={upvotes}
+          initialDownvotes={downvotes}
+          initialUserVote={userVote}
+          variant="compact"
         />
-        <span className="text-xs font-semibold tabular-nums">
-          {formatNumber(optimisticPost.likes.length)}
-        </span>
-      </AuthActionButton>
+      ) : (
+        <AuthActionButton
+          variant="ghost"
+          size="sm"
+          authorized={false}
+          dialog={{
+            title: "Join the conversation",
+            description: "Sign in to vote on posts.",
+          }}
+          className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-muted-foreground"
+        >
+          <span className="text-xs font-semibold">{upvotes - downvotes}</span>
+        </AuthActionButton>
+      )}
 
       {/* SAVE BUTTON */}
       <AuthActionButton
