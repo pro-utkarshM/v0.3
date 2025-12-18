@@ -20,6 +20,14 @@ export type CommunityPostTypeWithId = RawCommunityPostType & {
   views: number;
   likes: string[];
   savedBy: string[];
+  house?: 'Gryffindor' | 'Slytherin' | 'Ravenclaw' | 'Hufflepuff';
+  upvotes: string[];
+  downvotes: string[];
+  reactions: {
+    fire: string[];
+    rocket: string[];
+    bulb: string[];
+  };
 };
 
 interface ICommunityPost extends Document {
