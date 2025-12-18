@@ -4,8 +4,6 @@ import { db } from "~/db/connect";
 import { badgeTypes, userBadges, BADGE_DEFINITIONS } from "~/db/schema/badge-schema";
 import { users } from "~/db/schema/auth-schema";
 import { eq, and } from "drizzle-orm";
-import { headers } from "next/headers";
-import { auth } from "~/auth/server";
 
 /**
  * Initialize badge types in database (run once)
