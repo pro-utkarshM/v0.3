@@ -72,7 +72,8 @@ export async function createPost(postData: RawCommunityPostType) {
 export async function getCommunityPosts(
   category: string,
   page: number,
-  limit: number
+  limit: number,
+  houseFilter?: string | null
 ): Promise<CommunityPostTypeWithId[]> {
   const headersList = await headers();
   const session = await auth.api.getSession({
@@ -94,10 +95,20 @@ export async function getCommunityPosts(
 
   try {
     await dbConnect();
-    const posts = await CommunityPost.find({
+    
+    // Build query
+    const query: any = {
       category: category === "all" ? { $exists: true } : category,
-      house: user[0].house, // Filter by user's assigned house
-    })
+    };
+    
+    // Add house filter if specified, otherwise show user's house only
+    if (houseFilter) {
+      query.house = houseFilter;
+    } else {
+      query.house = user[0].house; // Default to user's house
+    }
+    
+    const posts = await CommunityPost.find(query)
       .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(limit)

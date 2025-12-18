@@ -28,16 +28,18 @@ export default async function CommunitiesPage(props: {
     c?: string;
     page?: number;
     limit?: number;
+    house?: string;
   }>;
 }) {
   const searchParams = await props.searchParams;
   const category = searchParams.c || "all";
   const page = searchParams.page || 1;
   const limit = searchParams.limit || 10;
+  const houseFilter = searchParams.house || null;
 
   const session = await getSession();
 
-  const posts = await getCommunityPosts(category, page, limit);
+  const posts = await getCommunityPosts(category, page, limit, houseFilter);
   const activeCategory = CATEGORIES.find((c) => c.value === category);
 
   return (

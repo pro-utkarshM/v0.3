@@ -3,6 +3,7 @@
 import { UserPreview } from "@/components/application/user-preview";
 import EmptyArea from "@/components/common/empty-area";
 import ShareButton from "@/components/common/share-button";
+import HouseBadge from "@/components/common/house-badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { formatDistanceToNow } from "date-fns";
 import { BarChart2, MessageSquare, MessageSquareText, Share2 } from "lucide-react";
@@ -70,6 +71,12 @@ export default function CommunityPostList({
                       @{post.author.username}
                     </span>
                   </UserPreview>
+                  {post.house && (
+                    <>
+                      <span className="text-muted-foreground">•</span>
+                      <HouseBadge house={post.house} size="sm" showIcon={false} />
+                    </>
+                  )}
                 </div>
                 <span className="text-muted-foreground/60">
                   {formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}

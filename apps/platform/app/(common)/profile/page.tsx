@@ -7,7 +7,8 @@ import { getYearProgressLogs, calculateStreak } from "~/actions/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { User, Home, Calendar } from "lucide-react";
+import { User, Calendar } from "lucide-react";
+import HouseBadge from "@/components/common/house-badge";
 import { db } from "~/db/connect";
 import { users } from "~/db/schema/auth-schema";
 import { eq } from "drizzle-orm";
@@ -74,12 +75,7 @@ async function ProfileContent({ userId }: { userId: string }) {
               </div>
 
               <div className="flex flex-wrap gap-2">
-                {user.house && (
-                  <Badge variant="default" className="gap-1">
-                    <Home className="size-3" />
-                    {user.house}
-                  </Badge>
-                )}
+                {user.house && <HouseBadge house={user.house} size="md" />}
                 <Badge variant="outline" className="gap-1">
                   <User className="size-3" />
                   {user.department}
