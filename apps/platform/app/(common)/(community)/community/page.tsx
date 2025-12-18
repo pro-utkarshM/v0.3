@@ -2,6 +2,7 @@ import { CATEGORIES } from "~/constants/common.community";
 
 import AdUnit from "@/components/common/adsense";
 import SortSelector from "@/components/common/sort-selector";
+import SearchBar from "@/components/common/search-bar";
 import { Badge } from "@/components/ui/badge";
 import { AuthButtonLink } from "@/components/utils/link";
 import { cn } from "@/lib/utils";
@@ -93,8 +94,13 @@ export default async function CommunitiesPage(props: {
             </AuthButtonLink>
           </div>
           
-          {/* Sort Selector */}
-          <SortSelector />
+          {/* Search and Sort */}
+          <div className="flex items-center gap-2">
+            <div className="flex-1">
+              <SearchBar />
+            </div>
+            <SortSelector />
+          </div>
         </div>
 
         {/* Post List */}
