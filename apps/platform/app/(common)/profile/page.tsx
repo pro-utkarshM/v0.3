@@ -4,11 +4,15 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import ProgressHeatmap, { ProgressHeatmapSkeleton } from "../progress/heatmap";
 import { getYearProgressLogs, calculateStreak } from "~/actions/progress";
+import { getUserBadges, getBadgeProgress } from "~/actions/badges";
+import dbConnect from "~/lib/dbConnect";
+import ProgressLog from "~/models/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { User, Calendar } from "lucide-react";
 import HouseBadge from "@/components/common/house-badge";
+import BadgeDisplay, { BadgeProgress } from "@/components/common/badge-display";
 import { db } from "~/db/connect";
 import { users } from "~/db/schema/auth-schema";
 import { eq } from "drizzle-orm";
@@ -41,10 +45,16 @@ async function ProfileContent({ userId }: { userId: string }) {
   const user = userData[0];
 
   // Fetch progress data
-  const [logs, streak] = await Promise.all([
+  await dbConnect();
+  const totalLogs = await ProgressLog.countDocuments({ userId });
+  
+  const [logs, streak, badges] = await Promise.all([
     getYearProgressLogs(userId),
     calculateStreak(userId),
+    getUserBadges(userId),
   ]);
+  
+  const badgeProgress = await getBadgeProgress(userId, streak.currentStreak, totalLogs);
 
   const memberSince = new Date(user.createdAt).toLocaleDateString("en-US", {
     month: "long",
@@ -89,6 +99,12 @@ async function ProfileContent({ userId }: { userId: string }) {
           </div>
         </CardContent>
       </Card>
+
+      {/* Badges */}
+      <BadgeDisplay badges={badges} />
+
+      {/* Badge Progress */}
+      <BadgeProgress progress={badgeProgress} />
 
       {/* Progress Heatmap */}
       <ProgressHeatmap logs={logs} streak={streak} />

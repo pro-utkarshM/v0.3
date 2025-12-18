@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
+import { checkAndAwardStreakBadges, checkAndAwardLogBadges } from "./badges";
 import { auth } from "~/auth";
 import { db } from "~/db/connect";
 import { users } from "~/db/schema/auth-schema";
@@ -85,6 +86,18 @@ export async function createProgressLog(
         console.error("Failed to auto-share progress:", error);
         // Don't fail the whole operation if sharing fails
       }
+    }
+
+    // Check and award badges
+    try {
+      const totalLogs = await ProgressLog.countDocuments({ userId: session.user.id });
+      const streakData = await calculateStreak(session.user.id);
+      
+      await checkAndAwardStreakBadges(session.user.id, streakData.currentStreak);
+      await checkAndAwardLogBadges(session.user.id, totalLogs);
+    } catch (error) {
+      console.error("Failed to check/award badges:", error);
+      // Don't fail the whole operation if badge awarding fails
     }
 
     revalidatePath("/progress");
