@@ -3,6 +3,7 @@
 import ShareButton from "@/components/common/share-button";
 import VoteButtons from "@/components/common/vote-buttons";
 import ReactionPicker from "@/components/common/reaction-picker";
+import ReportButton from "@/components/common/report-button";
 import { AuthActionButton } from "@/components/utils/link";
 import { cn } from "@/lib/utils";
 import {
@@ -161,6 +162,15 @@ export function OptimisticFooterActionBar({ post, user }: FooterProps) {
           initialReactions={reactions}
           initialUserReactions={userReactions}
           variant="compact"
+        />
+      )}
+
+      {/* REPORT BUTTON */}
+      {user && (
+        <ReportButton
+          contentType="post"
+          contentId={post._id}
+          variant="ghost"
         />
       )}
 
