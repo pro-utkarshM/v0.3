@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import HouseBadge, { getHouseEmoji, getHouseColors } from "@/components/common/house-badge";
 import { getHouseDetails, getHouseMembers, getHouseLeaderboard } from "~/actions/house";
+import { getHouseTopContributors } from "~/actions/points";
 import { Users, TrendingUp, MessageSquare, Calendar, Trophy } from "lucide-react";
 import Link from "next/link";
 
@@ -25,10 +26,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 async function HouseContent({ houseName }: { houseName: string }) {
-  const [houseDetails, members, leaderboard] = await Promise.all([
+  const [houseDetails, members, leaderboard, topContributors] = await Promise.all([
     getHouseDetails(houseName),
     getHouseMembers(houseName, 12),
     getHouseLeaderboard(houseName, 5),
+    getHouseTopContributors(houseName, 5),
   ]);
 
   const colors = getHouseColors(houseName);
@@ -94,33 +96,36 @@ async function HouseContent({ houseName }: { houseName: string }) {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Trophy className="size-5 text-yellow-500" />
-              Top Builders
+              Top Contributors This Week
             </CardTitle>
-            <CardDescription>Most active members this month</CardDescription>
+            <CardDescription>Members earning the most points for the house</CardDescription>
           </CardHeader>
           <CardContent>
-            {leaderboard.length > 0 ? (
+            {topContributors.length > 0 ? (
               <div className="space-y-4">
-                {leaderboard.map((entry, index) => (
-                  <div key={entry.userId} className="flex items-center gap-3">
+                {topContributors.map((contributor) => (
+                  <div key={contributor.userId} className="flex items-center gap-3">
                     <div className="flex items-center justify-center size-8 rounded-full bg-muted font-bold text-sm">
-                      {index + 1}
+                      {contributor.rank === 1 && "🥇"}
+                      {contributor.rank === 2 && "🥈"}
+                      {contributor.rank === 3 && "🥉"}
+                      {contributor.rank > 3 && contributor.rank}
                     </div>
                     <div className="flex-1">
                       <Link
-                        href={`/profile/${entry.username}`}
+                        href={`/profile/${contributor.username}`}
                         className="font-medium hover:underline"
                       >
-                        {entry.name}
+                        {contributor.name}
                       </Link>
                       <p className="text-xs text-muted-foreground">
-                        @{entry.username}
+                        @{contributor.username}
                       </p>
                     </div>
                     <div className="text-right">
-                      <div className="font-bold">{entry.totalIntensity}</div>
+                      <div className="font-bold text-primary">{contributor.totalPoints}</div>
                       <div className="text-xs text-muted-foreground">
-                        {entry.totalLogs} logs
+                        points
                       </div>
                     </div>
                   </div>

@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { checkAndAwardStreakBadges, checkAndAwardLogBadges } from "./badges";
+import { awardPoints } from "./points";
 import { auth } from "~/auth";
 import { db } from "~/db/connect";
 import { users } from "~/db/schema/auth-schema";
@@ -98,6 +99,20 @@ export async function createProgressLog(
     } catch (error) {
       console.error("Failed to check/award badges:", error);
       // Don't fail the whole operation if badge awarding fails
+    }
+
+    // Award house points for progress log
+    if (userData.house) {
+      try {
+        await awardPoints(
+          session.user.id,
+          userData.house,
+          "PROGRESS_LOG",
+          `Progress log: ${parsed.data.category}`
+        );
+      } catch (error) {
+        console.error("Failed to award points:", error);
+      }
     }
 
     revalidatePath("/progress");

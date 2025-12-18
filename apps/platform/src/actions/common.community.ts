@@ -1,8 +1,8 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { z } from "zod";
 import { headers } from "next/headers";
+import { awardPoints } from "./points";rs } from "next/headers";
 import { auth } from "~/auth";
 import {
   rawCommunityPostSchema,
@@ -59,6 +59,19 @@ export async function createPost(postData: RawCommunityPostType) {
     console.log("Post before save:", post);
     await post.save();
     console.log("Post after save:", post);
+    
+    // Award house points for creating a post
+    try {
+      await awardPoints(
+        session.user.id,
+        user[0].house,
+        "POST_CREATED",
+        `Post: ${parsed.data.title}`
+      );
+    } catch (error) {
+      console.error("Failed to award points:", error);
+    }
+    
     revalidatePath(`/community`);
     console.log("Revalidated /community path");
     return Promise.resolve("Post created successfully");
