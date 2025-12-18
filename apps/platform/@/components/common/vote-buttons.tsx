@@ -69,7 +69,7 @@ export default function VoteButtons({
         // Update with server response
         setUpvotes(result.upvotes);
         setDownvotes(result.downvotes);
-        setUserVote(result.userVote);
+        setUserVote(result.userVote as "upvote" | "downvote" | null);
       } catch (error: any) {
         // Revert on error
         setUpvotes(previousState.upvotes);
