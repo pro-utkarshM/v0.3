@@ -66,7 +66,7 @@ export default function ProgressLogForm() {
         category: values.category,
         intensity: values.intensity,
         note: values.note || undefined,
-        autoShare: values.autoShare,
+        autoShared: values.autoShare,
       });
 
       toast.success("Progress logged! 🚀");
