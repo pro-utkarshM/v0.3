@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
-import { z } from "zod";
+import * as z from "zod";
 import { awardPoints } from "./points";
 import { auth } from "~/auth";
 import {
