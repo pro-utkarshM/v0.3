@@ -144,6 +144,7 @@ export async function quickBuildLog(category: string, intensity: number = 2) {
     intensity,
     note: undefined,
     projectId: undefined,
+    autoShared: true, // Quick logs are auto-shared by default
   });
 }
 
