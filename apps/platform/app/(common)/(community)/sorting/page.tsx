@@ -138,7 +138,12 @@ export default function SortingPage() {
             </Button>
           </CardContent>
         </Card>
-      </di  if (questions.length === 0) {   return (
+      </div>
+    );
+  }
+
+  if (questions.length === 0) {
+    return (
       <div className="flex justify-center items-center h-screen">
         No sorting questions available.
       </div>
