@@ -38,7 +38,7 @@ export default async function CommunitiesPage(props: {
   const category = searchParams.c || "all";
   const page = searchParams.page || 1;
   const limit = searchParams.limit || 10;
-  const houseFilter = searchParams.house || null;
+  const houseFilter = searchParams.house || undefined;
   const sortBy = searchParams.sort || "new";
 
   const session = await getSession();
