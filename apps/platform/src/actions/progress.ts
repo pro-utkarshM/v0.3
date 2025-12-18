@@ -19,7 +19,7 @@ import CommunityPost from "~/models/community";
  * Create a new progress log entry
  */
 export async function createProgressLog(
-  logData: Omit<RawProgressLogType, "userId" | "autoShared">
+  logData: Omit<RawProgressLogType, "userId"> & { autoShare?: boolean }
 ) {
   const headersList = await headers();
   const session = await auth.api.getSession({
@@ -47,11 +47,14 @@ export async function createProgressLog(
 
   const userData = user[0];
 
+  const shouldAutoShare = logData.autoShare ?? false;
+  
   // Validate the log data
   const parsed = rawProgressLogSchema.safeParse({
     ...logData,
     userId: session.user.id,
     autoShared: false,
+    autoShare: undefined, // Remove from validation
   });
 
   if (!parsed.success) {
@@ -74,8 +77,19 @@ export async function createProgressLog(
 
     await progressLog.save();
 
+    // Auto-share to community if requested
+    if (shouldAutoShare && userData.house) {
+      try {
+        await autoShareProgressToFeed(progressLog, userData);
+      } catch (error) {
+        console.error("Failed to auto-share progress:", error);
+        // Don't fail the whole operation if sharing fails
+      }
+    }
+
     revalidatePath("/progress");
     revalidatePath("/profile");
+    revalidatePath("/community");
 
     return JSON.parse(JSON.stringify(progressLog)) as ProgressLogTypeWithId;
   } catch (error: any) {
@@ -230,7 +244,47 @@ export async function calculateStreak(userId: string): Promise<{
 }
 
 /**
- * Auto-share progress to house feed
+ * Internal helper to auto-share progress when creating a log
+ */
+async function autoShareProgressToFeed(
+  progressLog: any,
+  userData: { house: string | null; name: string; username: string }
+) {
+  if (!userData.house) {
+    return; // Can't share without a house
+  }
+
+  await dbConnect();
+
+  // Create community post
+  const postContent = progressLog.note
+    ? `🚀 **${progressLog.category}** progress today!\n\n${progressLog.note}\n\n*Intensity: ${"⭐".repeat(progressLog.intensity)}*`
+    : `🚀 Made progress on **${progressLog.category}** today! ${"⭐".repeat(progressLog.intensity)}`;
+
+  const communityPost = new CommunityPost({
+    title: `${userData.name} built today!`,
+    content: postContent,
+    category: "General",
+    author: {
+      id: progressLog.userId,
+      name: userData.name,
+      username: userData.username,
+    },
+    house: userData.house,
+    views: 0,
+    likes: [],
+    savedBy: [],
+  });
+
+  await communityPost.save();
+
+  // Mark progress as shared
+  progressLog.autoShared = true;
+  await progressLog.save();
+}
+
+/**
+ * Manually share progress to house feed (for existing logs)
  */
 export async function shareProgressToFeed(progressLogId: string) {
   const headersList = await headers();

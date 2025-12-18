@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Sparkles, Zap } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -38,6 +39,7 @@ const progressFormSchema = z.object({
   category: z.enum(PROGRESS_CATEGORIES),
   intensity: z.number().min(1).max(4),
   note: z.string().max(500).optional(),
+  autoShare: z.boolean().default(true),
 });
 
 type ProgressFormValues = z.infer<typeof progressFormSchema>;
@@ -51,6 +53,7 @@ export default function ProgressLogForm() {
       category: "Code",
       intensity: 2,
       note: "",
+      autoShare: true,
     },
   });
 
@@ -58,11 +61,12 @@ export default function ProgressLogForm() {
 
   async function onSubmit(values: ProgressFormValues) {
     try {
-      await createProgressLog({
+      const log = await createProgressLog({
         date: new Date(),
         category: values.category,
         intensity: values.intensity,
         note: values.note || undefined,
+        autoShare: values.autoShare,
       });
 
       toast.success("Progress logged! 🚀");
@@ -207,6 +211,30 @@ export default function ProgressLogForm() {
                       {field.value?.length || 0}/500
                     </p>
                     <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Auto-Share Toggle */}
+              <FormField
+                control={form.control}
+                name="autoShare"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                    <div className="space-y-0.5">
+                      <FormLabel className="text-base">
+                        Share to Community
+                      </FormLabel>
+                      <p className="text-sm text-muted-foreground">
+                        Automatically post this progress to your house feed
+                      </p>
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
                   </FormItem>
                 )}
               />
