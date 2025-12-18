@@ -37,7 +37,7 @@ async function HouseCupContent() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Calendar className="size-5" />
-            This Week's Standings
+            This Week&apos;s Standings
           </CardTitle>
           <CardDescription>
             Week of {weeklyStandings[0]?.weekStart 

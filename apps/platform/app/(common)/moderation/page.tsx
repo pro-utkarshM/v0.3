@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Shield, AlertTriangle, CheckCircle, XCircle, Clock } from "lucide-react";
+import Link from "next/link";
 import { getReports, getModerationStats } from "~/actions/moderation";
 import { getSession } from "~/auth/server";
 import { redirect } from "next/navigation";
@@ -126,35 +127,35 @@ export default async function ModerationDashboard(props: {
           size="sm"
           asChild
         >
-          <a href="/moderation">All Reports</a>
+          <Link href="/moderation">All Reports</Link>
         </Button>
         <Button
           variant={statusFilter === "pending" ? "default" : "outline"}
           size="sm"
           asChild
         >
-          <a href="/moderation?status=pending">Pending</a>
+          <Link href="/moderation?status=pending">Pending</Link>
         </Button>
         <Button
           variant={statusFilter === "reviewing" ? "default" : "outline"}
           size="sm"
           asChild
         >
-          <a href="/moderation?status=reviewing">Reviewing</a>
+          <Link href="/moderation?status=reviewing">Reviewing</Link>
         </Button>
         <Button
           variant={statusFilter === "resolved" ? "default" : "outline"}
           size="sm"
           asChild
         >
-          <a href="/moderation?status=resolved">Resolved</a>
+          <Link href="/moderation?status=resolved">Resolved</Link>
         </Button>
         <Button
           variant={statusFilter === "dismissed" ? "default" : "outline"}
           size="sm"
           asChild
         >
-          <a href="/moderation?status=dismissed">Dismissed</a>
+          <Link href="/moderation?status=dismissed">Dismissed</Link>
         </Button>
       </div>
 

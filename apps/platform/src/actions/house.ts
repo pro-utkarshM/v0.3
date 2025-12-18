@@ -1,7 +1,8 @@
 "use server";
 
 import { db } from "~/db/connect";
-import { houses, users } from "~/db/schema/auth-schema";
+import { users } from "~/db/schema/auth-schema";
+import { houses } from "~/db/schema/house-schema";
 import { eq, sql, and } from "drizzle-orm";
 import dbConnect from "~/lib/dbConnect";
 import CommunityPost from "~/models/community";
