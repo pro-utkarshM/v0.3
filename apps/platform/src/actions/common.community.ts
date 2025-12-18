@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
-import { awardPoints } from "./points";rs } from "next/headers";
+import { awardPoints } from "./points";
 import { auth } from "~/auth";
 import {
   rawCommunityPostSchema,

@@ -4,7 +4,7 @@ import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import ActivityCalendar, { type Activity } from "react-activity-calendar";
+import { ActivityCalendar, type Activity } from "react-activity-calendar";
 import { Flame, TrendingUp, Calendar } from "lucide-react";
 import { useTheme } from "next-themes";
 import type { ProgressLogTypeWithId } from "~/models/progress";
@@ -106,14 +106,7 @@ export default function ProgressHeatmap({ logs, streak }: ProgressHeatmapProps) 
                 labels={{
                   totalCount: "{{count}} logs in the last year",
                 }}
-                renderBlock={(block, activity) =>
-                  React.cloneElement(block, {
-                    "data-tooltip-id": "activity-tooltip",
-                    "data-tooltip-content": `${activity.count} ${
-                      activity.count === 1 ? "log" : "logs"
-                    } on ${activity.date}`,
-                  })
-                }
+                // Tooltip handled by default hover behavior
               />
             </div>
           ) : (
