@@ -1,6 +1,7 @@
 import { CATEGORIES } from "~/constants/common.community";
 
 import AdUnit from "@/components/common/adsense";
+import SortSelector from "@/components/common/sort-selector";
 import { Badge } from "@/components/ui/badge";
 import { AuthButtonLink } from "@/components/utils/link";
 import { cn } from "@/lib/utils";
@@ -29,6 +30,7 @@ export default async function CommunitiesPage(props: {
     page?: number;
     limit?: number;
     house?: string;
+    sort?: "new" | "hot" | "top";
   }>;
 }) {
   const searchParams = await props.searchParams;
@@ -36,10 +38,11 @@ export default async function CommunitiesPage(props: {
   const page = searchParams.page || 1;
   const limit = searchParams.limit || 10;
   const houseFilter = searchParams.house || null;
+  const sortBy = searchParams.sort || "new";
 
   const session = await getSession();
 
-  const posts = await getCommunityPosts(category, page, limit, houseFilter);
+  const posts = await getCommunityPosts(page, limit, category, houseFilter, sortBy);
   const activeCategory = CATEGORIES.find((c) => c.value === category);
 
   return (
@@ -49,7 +52,7 @@ export default async function CommunitiesPage(props: {
       <div className="lg:col-span-2 min-h-screen space-y-6">
 
         {/* Sticky Header */}
-        <div className="sticky top-4 z-30 rounded-xl border border-border/40 bg-card/80 backdrop-blur-xl px-4 py-3 shadow-sm transition-all">
+        <div className="sticky top-4 z-30 rounded-xl border border-border/40 bg-card/80 backdrop-blur-xl px-4 py-3 shadow-sm transition-all space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className={cn(
@@ -89,6 +92,9 @@ export default async function CommunitiesPage(props: {
               <span className="hidden sm:inline">New Post</span>
             </AuthButtonLink>
           </div>
+          
+          {/* Sort Selector */}
+          <SortSelector />
         </div>
 
         {/* Post List */}

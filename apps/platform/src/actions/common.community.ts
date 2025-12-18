@@ -83,10 +83,11 @@ export async function createPost(postData: RawCommunityPostType) {
 
 // Get posts by category and pagination
 export async function getCommunityPosts(
-  category: string,
-  page: number,
-  limit: number,
-  houseFilter?: string | null
+  page: number = 1,
+  limit: number = 10,
+  category?: string,
+  house?: string,
+  sortBy: "new" | "hot" | "top" = "new"
 ): Promise<CommunityPostTypeWithId[]> {
   const headersList = await headers();
   const session = await auth.api.getSession({
@@ -121,11 +122,57 @@ export async function getCommunityPosts(
       query.house = user[0].house; // Default to user's house
     }
     
-    const posts = await CommunityPost.find(query)
-      .sort({ createdAt: -1 })
+    // Determine sort order
+    let sortQuery: any;
+    switch (sortBy) {
+      case "hot":
+        // Hot: Recent posts with high engagement (upvotes + reactions + comments)
+        // Use a simple score: upvotes - downvotes + reactions + views/100
+        sortQuery = { createdAt: -1 }; // Fallback to new for now, will add scoring
+        break;
+      case "top":
+        // Top: Most upvoted posts
+        sortQuery = { createdAt: -1 }; // Fallback, will calculate score
+        break;
+      case "new":
+      default:
+        sortQuery = { createdAt: -1 };
+        break;
+    }
+
+    let posts = await CommunityPost.find(query)
+      .sort(sortQuery)
       .skip((page - 1) * limit)
-      .limit(limit)
+      .limit(limit * 2) // Fetch more for sorting
       .populate("author", "name email rollNo");
+
+    // Apply custom sorting for hot and top
+    if (sortBy === "hot" || sortBy === "top") {
+      posts = posts.map((post: any) => {
+        const upvotes = post.upvotes?.length || 0;
+        const downvotes = post.downvotes?.length || 0;
+        const reactions = (post.reactions?.fire?.length || 0) + 
+                         (post.reactions?.rocket?.length || 0) + 
+                         (post.reactions?.bulb?.length || 0);
+        const views = post.views || 0;
+        const ageInHours = (Date.now() - new Date(post.createdAt).getTime()) / (1000 * 60 * 60);
+        
+        let score;
+        if (sortBy === "hot") {
+          // Hot algorithm: (upvotes - downvotes + reactions + views/100) / (age + 2)^1.5
+          score = (upvotes - downvotes + reactions + views / 100) / Math.pow(ageInHours + 2, 1.5);
+        } else {
+          // Top: Just net votes + reactions
+          score = upvotes - downvotes + reactions;
+        }
+        
+        return { ...post.toObject(), _score: score };
+      }).sort((a: any, b: any) => b._score - a._score);
+    }
+
+    // Limit to requested amount
+    posts = posts.slice(0, limit);
+    
     return Promise.resolve(JSON.parse(JSON.stringify(posts)));
   } catch (err) {
     console.error(err);
