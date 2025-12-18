@@ -2,6 +2,7 @@
 
 import ShareButton from "@/components/common/share-button";
 import VoteButtons from "@/components/common/vote-buttons";
+import ReactionPicker from "@/components/common/reaction-picker";
 import { AuthActionButton } from "@/components/utils/link";
 import { cn } from "@/lib/utils";
 import {
@@ -63,6 +64,18 @@ export function OptimisticFooterActionBar({ post, user }: FooterProps) {
       ? "downvote" as const
       : null
     : null;
+
+  // Calculate reaction data
+  const reactions = {
+    fire: post.reactions?.fire?.length || 0,
+    rocket: post.reactions?.rocket?.length || 0,
+    bulb: post.reactions?.bulb?.length || 0,
+  };
+  const userReactions = {
+    fire: user ? post.reactions?.fire?.includes(user.id) || false : false,
+    rocket: user ? post.reactions?.rocket?.includes(user.id) || false : false,
+    bulb: user ? post.reactions?.bulb?.includes(user.id) || false : false,
+  };
 
   const [optimisticPost, setOptimisticPost] = useOptimistic(
     post,
@@ -138,6 +151,17 @@ export function OptimisticFooterActionBar({ post, user }: FooterProps) {
         >
           <span className="text-xs font-semibold">{upvotes - downvotes}</span>
         </AuthActionButton>
+      )}
+
+      {/* REACTIONS */}
+      {user && (
+        <ReactionPicker
+          itemId={post._id}
+          itemType="post"
+          initialReactions={reactions}
+          initialUserReactions={userReactions}
+          variant="compact"
+        />
       )}
 
       {/* SAVE BUTTON */}

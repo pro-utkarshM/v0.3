@@ -37,6 +37,11 @@ interface ICommunityPost extends Document {
   likes: string[]; // Deprecated - use upvotes/downvotes
   upvotes: string[]; // Array of user IDs who upvoted
   downvotes: string[]; // Array of user IDs who downvoted
+  reactions: {
+    fire: string[]; // 🔥
+    rocket: string[]; // 🚀
+    bulb: string[]; // 💡
+  };
   savedBy: string[];
   updatedAt: Date;
   createdAt: Date;
@@ -53,6 +58,11 @@ const communityPostSchema = new Schema<ICommunityPost>(
     likes: [String], // Deprecated
     upvotes: { type: [String], default: [] },
     downvotes: { type: [String], default: [] },
+    reactions: {
+      fire: { type: [String], default: [] },
+      rocket: { type: [String], default: [] },
+      bulb: { type: [String], default: [] },
+    },
     savedBy: [String],
     author: {
       id: { type: String, required: true },
@@ -85,6 +95,11 @@ interface ICommunityComment extends Document {
   };
   upvotes: string[];
   downvotes: string[];
+  reactions: {
+    fire: string[];
+    rocket: string[];
+    bulb: string[];
+  };
 }
 
 const communityCommentSchema = new Schema<ICommunityComment>(
@@ -113,6 +128,11 @@ const communityCommentSchema = new Schema<ICommunityComment>(
     ],
     upvotes: { type: [String], default: [] },
     downvotes: { type: [String], default: [] },
+    reactions: {
+      fire: { type: [String], default: [] },
+      rocket: { type: [String], default: [] },
+      bulb: { type: [String], default: [] },
+    },
   },
   {
     timestamps: true,
