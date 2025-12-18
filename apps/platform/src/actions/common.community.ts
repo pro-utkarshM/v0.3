@@ -115,11 +115,9 @@ export async function getCommunityPosts(
       category: category === "all" ? { $exists: true } : category,
     };
     
-    // Add house filter if specified, otherwise show user's house only
-    if (houseFilter) {
-      query.house = houseFilter;
-    } else {
-      query.house = user[0].house; // Default to user's house
+    // Add house filter if specified
+    if (house) {
+      query.house = house;
     }
     
     // Determine sort order
