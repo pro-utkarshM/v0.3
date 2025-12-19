@@ -29,7 +29,7 @@ export function PollDisplay({
 
         return (
           <div
-            key={pollRefId + "_" + option.id}
+            key={pollRefId + "_" + option}
             className="relative w-full rounded-lg border overflow-hidden group"
           >
             {/* Progress background */}
@@ -43,7 +43,7 @@ export function PollDisplay({
 
             {/* Option Row */}
             <button
-              aria-label={`Vote for ${option.text}`}
+              aria-label={`Vote for ${option}`}
               disabled={disabled}
               className={cn(
                 "relative z-10 flex w-full items-center justify-between px-4 py-2 text-sm font-medium transition-colors",
@@ -56,7 +56,7 @@ export function PollDisplay({
             >
               <div className="flex items-center gap-2">
                 {voted && <Check className="h-4 w-4 text-primary shrink-0" />}
-                <span>{option.text}</span>
+                <span>{option}</span>
               </div>
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <span>{percent.toFixed(1)}%</span>
@@ -180,7 +180,7 @@ export default function PollingFunctional({ poll, user, updatePoll, settings, po
 
         return (
           <motion.div
-            key={pollRefId + "_" + option.id}
+            key={pollRefId + "_" + option}
             className={cn(
               "relative overflow-hidden rounded-xl border border-border bg-muted",
               hasVoted && "border border-primary"
@@ -198,7 +198,7 @@ export default function PollingFunctional({ poll, user, updatePoll, settings, po
             <div className="relative z-10 p-4 flex flex-row items-start justify-between rounded-md shadow-none transition-all">
               <div className="flex-1 grid gap-1.5">
                 <div className="font-semibold flex items-center gap-2 text-sm">
-                  {option.text}
+                  {option}
                 </div>
                 <div className="flex gap-1 text-xs text-muted-foreground font-medium">
                   <span>{percent.toFixed(1)}%</span>
