@@ -1,8 +1,17 @@
 import { InferSelectModel } from "drizzle-orm";
-import { boolean, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  pgEnum,
+  pgTable,
+  text,
+  timestamp,
+} from "drizzle-orm/pg-core";
 import { nanoid } from "nanoid";
 import { houses } from "./house-schema";
 
+/* =========================================================
+   ENUMS
+========================================================= */
 
 export const userGenderEnum = pgEnum("user_gender_enum", [
   "male",
@@ -10,82 +19,183 @@ export const userGenderEnum = pgEnum("user_gender_enum", [
   "not_specified",
 ]);
 
+/* =========================================================
+   USERS
+   - OAuth-safe
+   - Profile completed via onboarding
+========================================================= */
+
 export const users = pgTable("users", {
-  id: text("id").primaryKey(),
-  name: text("name").notNull(),
-  email: text("email").notNull().unique(),
-  username: text("username").notNull().unique(),
-  displayUsername: text("displayUsername").notNull().default("not_specified"),
-  emailVerified: boolean("emailVerified").notNull(),
+  /* ---- Identity ---- */
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => nanoid()),
+
+  email: text("email").unique(),
+  name: text("name"),
   image: text("image"),
-  createdAt: timestamp("createdAt").notNull(),
-  updatedAt: timestamp("updatedAt").notNull(),
-  role: text("role").notNull().default("user"),
+
+  emailVerified: boolean("emailVerified")
+    .notNull()
+    .default(false),
+
+  /* ---- Profile / Domain ---- */
+  username: text("username").unique(),
+  displayUsername: text("displayUsername")
+    .notNull()
+    .default("not_specified"),
+
+  role: text("role")
+    .notNull()
+    .default("user"),
+
   gender: userGenderEnum("gender")
     .notNull()
-    .default("not_specified")
-    .$default(() => "not_specified"),
-  house: text("house").references(() => houses.name),
+    .default("not_specified"),
+
+  house: text("house")
+    .references(() => houses.name),
+
   hasCompletedSorting: boolean("hasCompletedSorting")
     .notNull()
     .default(false),
-    banned: boolean("banned").default(false),
+
+  /* ---- Moderation ---- */
+  banned: boolean("banned")
+    .notNull()
+    .default(false),
+
   banReason: text("ban_reason"),
   banExpires: timestamp("ban_expires"),
+
+  /* ---- Timestamps ---- */
+  createdAt: timestamp("createdAt")
+    .notNull()
+    .defaultNow(),
+
+  updatedAt: timestamp("updatedAt")
+    .notNull()
+    .defaultNow(),
 });
 
 export type UserType = InferSelectModel<typeof users>;
 
+/* =========================================================
+   SESSIONS
+========================================================= */
+
 export const sessions = pgTable("sessions", {
-  id: text("id").primaryKey(),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => nanoid()),
+
+  token: text("token")
+    .notNull()
+    .unique(),
+
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id),
+
   expiresAt: timestamp("expiresAt").notNull(),
-  token: text("token").notNull().unique(),
-  createdAt: timestamp("createdAt").notNull(),
-  updatedAt: timestamp("updatedAt").notNull(),
+
   ipAddress: text("ipAddress"),
   userAgent: text("userAgent"),
-  userId: text("userId")
-    .notNull()
-    .references(() => users.id),
   impersonatedBy: text("impersonatedBy"),
+
+  createdAt: timestamp("createdAt")
+    .notNull()
+    .defaultNow(),
+
+  updatedAt: timestamp("updatedAt")
+    .notNull()
+    .defaultNow(),
 });
 
+/* =========================================================
+   ACCOUNTS (OAuth / Credentials)
+========================================================= */
+
 export const accounts = pgTable("accounts", {
-  id: text("id").primaryKey(),
-  accountId: text("accountId").notNull(),
-  providerId: text("providerId").notNull(),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => nanoid()),
+
   userId: text("userId")
     .notNull()
     .references(() => users.id),
+
+  providerId: text("providerId").notNull(),
+  accountId: text("accountId").notNull(),
+
   accessToken: text("accessToken"),
   refreshToken: text("refreshToken"),
   idToken: text("idToken"),
+  scope: text("scope"),
+
   accessTokenExpiresAt: timestamp("accessTokenExpiresAt"),
   refreshTokenExpiresAt: timestamp("refreshTokenExpiresAt"),
-  scope: text("scope"),
-  password: text("password"),
-  createdAt: timestamp("createdAt").notNull(),
-  updatedAt: timestamp("updatedAt").notNull(),
+
+  password: text("password"), // only for credentials provider
+
+  createdAt: timestamp("createdAt")
+    .notNull()
+    .defaultNow(),
+
+  updatedAt: timestamp("updatedAt")
+    .notNull()
+    .defaultNow(),
 });
+
+/* =========================================================
+   VERIFICATIONS (magic links, reset tokens, etc.)
+========================================================= */
 
 export const verifications = pgTable("verifications", {
-  id: text("id").primaryKey(),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => nanoid()),
+
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),
+
   expiresAt: timestamp("expiresAt").notNull(),
-  createdAt: timestamp("createdAt"),
-  updatedAt: timestamp("updatedAt"),
+
+  createdAt: timestamp("createdAt")
+    .notNull()
+    .defaultNow(),
+
+  updatedAt: timestamp("updatedAt")
+    .notNull()
+    .defaultNow(),
 });
 
+/* =========================================================
+   EMAIL VERIFICATIONS (optional but useful)
+========================================================= */
+
 export const emailVerifications = pgTable("email_verifications", {
-  id: text("id").primaryKey().default(nanoid(21)),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => nanoid()),
+
   userId: text("userId")
     .notNull()
     .references(() => users.id),
+
   email: text("email").notNull(),
+
+  token: text("token")
+    .notNull()
+    .unique(),
+
+  verified: boolean("verified")
+    .notNull()
+    .default(false),
+
   expiresAt: timestamp("expiresAt").notNull(),
-  verified: boolean("verified").notNull().default(false),
-  token: text("token").notNull().unique(),
-  // The token is a unique identifier for the email verification process
-  createdAt: timestamp("createdAt").notNull(),
+
+  createdAt: timestamp("createdAt")
+    .notNull()
+    .defaultNow(),
 });

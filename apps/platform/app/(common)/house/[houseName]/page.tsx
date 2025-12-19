@@ -158,16 +158,18 @@ async function HouseContent({ houseName }: { houseName: string }) {
                   href={`/profile/${member.username}`}
                   className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-muted transition-colors"
                 >
-                  <Avatar className="size-12 border-2 border-border">
-                    <AvatarImage src={member.image || undefined} alt={member.name} />
-                    <AvatarFallback>
-                      {member.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")
-                        .toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
+                <Avatar className="size-12 border-2 border-border">
+                  <AvatarImage
+                    src={member.image ?? undefined}
+                    alt={member.name ?? "User avatar"}
+                  />
+                  <AvatarFallback>
+                    {(member.name ?? "User")
+                      .split(" ")
+                      .map(n => n[0])
+                      .join("")}
+                  </AvatarFallback>
+                </Avatar>
                   <div className="text-center">
                     <p className="text-sm font-medium truncate max-w-full">
                       {member.name}

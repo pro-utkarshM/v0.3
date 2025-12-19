@@ -68,13 +68,15 @@ async function ProfileContent({ userId }: { userId: string }) {
         <CardContent className="pt-6">
           <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
             <Avatar className="size-24 border-4 border-border">
-              <AvatarImage src={user.image || undefined} alt={user.name} />
+              <AvatarImage
+                src={user.image ?? undefined}
+                alt={user.name ?? "User avatar"}
+              />
               <AvatarFallback className="text-2xl">
-                {user.name
+                {(user.name ?? "User")
                   .split(" ")
-                  .map((n) => n[0])
-                  .join("")
-                  .toUpperCase()}
+                  .map(n => n[0])
+                  .join("")}
               </AvatarFallback>
             </Avatar>
 
