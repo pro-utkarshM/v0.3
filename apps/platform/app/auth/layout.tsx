@@ -53,9 +53,9 @@ export default function AuthLayout({ children }: LayoutProps) {
         
           <blockquote className="space-y-2">
             <p className="text-lg">
-              &ldquo;This platform has completely transformed how we manage academic resources and campus life. It{"'"}s the operating system our college needed.&rdquo;
+              &ldquo;a small corner of the internet for people who ship things, break things, and keep going.&rdquo;
             </p>
-            <footer className="text-sm text-zinc-400">NITH Student Community</footer>
+            <footer className="text-sm text-zinc-400">nerds community</footer>
           </blockquote>
         </div>
       </div>
