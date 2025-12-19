@@ -128,13 +128,6 @@ export const betterAuthOptions = {
       },
     },
   },
-  advanced: {
-    crossSubDomainCookies: {
-      enabled: process.env.NODE_ENV === "production",
-      domain: appConfig.appDomain,
-    },
-    cookiePrefix: "nith",
-  },
   trustedOrigins: [
     "http://localhost:3000",
     "http://*.vercel.app",
@@ -143,7 +136,6 @@ export const betterAuthOptions = {
     process.env.BETTER_AUTH_URL
 
   ],
-  // trustedOrigins: [appConfig.url, `https://${appConfig.appDomain}`,`https://*.nith.eu.org`],
   user: {
     additionalFields: {
       role: {
