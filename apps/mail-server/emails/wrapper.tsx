@@ -24,8 +24,8 @@ const organization = {
   phone: "+1 (123) 456-7890",
   socials:{
     twitter: "https://twitter.com/nerdynetco",
-    linkedin: "https://linkedin.com/in/nerdynetco",
-    instagram: "https://instagram.com/nerdynetco",
+    linkedin: "https://linkedin.com/in/nerdy-network",
+    instagram: "https://instagram.com/the_nerdy_network",
     github: "https://github.com/nerdynetco"
   }
 }
