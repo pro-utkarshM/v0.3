@@ -119,7 +119,7 @@ export function IntroSection({
               <span className="bg-linear-to-l from-emerald-500 from-10% via-sky-500 via-30% to-indigo-500 to-90% bg-clip-text text-transparent">nerdiest corner.</span> <br className="hidden lg:block"/>
             </h1>
             <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 text-balance leading-relaxed">
-              {appConfig.description || "Manage results, find empty classrooms, and connect with seniors. Everything you need to survive and thrive in college, all in one place."}
+              {appConfig.description || "A community for student builders to showcase projects, track progress, and connect with fellow builders. Build in public, compete in houses, and level up together."}
             </p>
           </StaggerChildrenItem>
 
