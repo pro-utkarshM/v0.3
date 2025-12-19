@@ -1,6 +1,6 @@
-import { appConfig, SMTP_SETTINGS } from "@/project.config";
-import { mailerPayloadSchema, type MailerPayload } from "@/types/schema";
 import nodemailer from "nodemailer";
+import {SMTP_SETTINGS} from "@/project.config";
+import {mailerPayloadSchema,type MailerPayload} from "@/types/schema";
 
 
 
@@ -16,14 +16,6 @@ export const handleEmailFire = async (from: string, data: MailerPayload) => {
 
   return await transporter.sendMail({
     from: from, // 'Sender Name <sender@server.com>'
-    replyTo: from, // Optional: Set reply-to to the sender
-    ...res.data, // to, subject, html
-    headers: {
-      "X-Mailer": appConfig.name,
-      'List-Unsubscribe': `<mailto:unsubscribe@${appConfig.appDomain}>`,
-      'Precedence': 'bulk',
-      'X-Auto-Response-Suppress': 'All',
-      'Auto-Submitted': 'auto-generated',
-    },
+    ...res.data,
   });
 };

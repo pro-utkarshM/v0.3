@@ -1,46 +1,37 @@
 
 
-export const appConfig = {
-  name: "Nerdy Network",
-  appDomain: "nerdynet.co",
-  url: "https://app.nerdynet.co",
-  logo: "https://app.nerdynet.co/logo.png",
-  logoSquare: "https://app.nerdynet.co/favicon.ico",
-  tagline: "Connecting nerds.",
-  description:
-    "A platform for nerds to connect, collaborate, and share knowledge.",
-  authors: [
-    { name: "Kanak Kholwal", url: "https://kanakkholwal.eu.org" },
-    { name: "NITH", url: "https://nith.ac.in" },
-  ],
-  githubRepo: "https://github.com/nerdynetwork/nerdynetwork-platform",
-  socials: {
-    twitter: "https://twitter.com/nerdynetworkco",
-    linkedin: "https://linkedin.com/in/nerdynetworkco",
-    instagram: "https://instagram.com/nerdynetworkco",
-    github: "https://github.com/nerdynetwork"
-  },
-  // sender email
-  senderEmail: `platform@nerdynet.co`,
-  sender: `Nerdy Network Platform <platform@nerdynet.co>`,
-  contact:"https://forms.gle/hRwNKJouXpaPSJBv9",
-  
-} as const;
+export const APPLICATION_NAME = "Nerdy-Network";
+export const ORG_DOMAIN = "nerdynet.co";
+export const ORG_NAME = "Nerdy Network";
 
-export const SERVER_IDENTITY = process.env.SERVER_IDENTITY;
 
-export const SMTP_HOST = process.env.SMTP_HOST;
-export const MAIL_EMAIL = process.env.MAIL_EMAIL;
-export const MAIL_PASSWORD = process.env.MAIL_PASSWORD;
+export const SENDER_EMAIL = `contact@${ORG_DOMAIN}`;
+export const SENDER = `${APPLICATION_NAME} <${SENDER_EMAIL}>`;
 
+
+
+export const IDENTITY_KEY = process.env.SERVER_IDENTITY;
+
+if(!IDENTITY_KEY) {
+    throw new Error("Missing SERVER_IDENTITY in environment variables");
+}
+
+const SMTP_HOST = process.env.SMTP_HOST;
+const MAIL_EMAIL = process.env.MAIL_EMAIL;
+const MAIL_PASSWORD = process.env.MAIL_PASSWORD;
+
+
+if(!MAIL_EMAIL || !MAIL_PASSWORD || !SMTP_HOST) {
+    throw new Error("Missing MAIL_EMAIL or MAIL_PASSWORD in environment variables");
+}
 
 
 export const SMTP_SETTINGS = {
-  host: SMTP_HOST || "smtp-relay.brevo.com", // "smtp.gmail.com", //replace with your email provider
-  port: 587,
-  secure: false, // true for 465, false for other ports
-  auth: {
-    user: MAIL_EMAIL,
-    pass: MAIL_PASSWORD,
-  },
+    host: SMTP_HOST ||" smtp-relay.brevo.com ", // "smtp.gmail.com", //replace with your email provider
+    port: 587,
+    // secure: false, // true for 465, false for other ports
+    auth: {
+        user: MAIL_EMAIL,
+        pass: MAIL_PASSWORD,
+    },
 }
