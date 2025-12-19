@@ -2,20 +2,14 @@ import { z } from "zod";
 import { orgConfig } from "~/project.config";
 import { formatNumberOrdinal } from "~/utils/number";
 
+// Simplified role system for builder community
+// Old system had 13 roles (warden, librarian, guard, etc.) which were for traditional institutional management
+// New system has 4 roles focused on builder community needs
 export const ROLES_ENUMS = {
-  ADMIN: "admin",
-  STUDENT: "student",
-  CR: "cr",
-  FACULTY: "faculty",
-  HOD: "hod",
-  ASSISTANT: "assistant",
-  MMCA: "mmca",
-  WARDEN: "warden",
-  ASSISTANT_WARDEN: "assistant_warden",
-  CHIEF_WARDEN: "chief_warden",
-  LIBRARIAN: "librarian",
-  STAFF: "staff",
-  GUARD: "guard",
+  ADMIN: "admin",           // Platform administrators
+  BUILDER: "builder",       // Student builders (formerly STUDENT)
+  MENTOR: "mentor",         // Faculty/mentors (formerly FACULTY)
+  MODERATOR: "moderator",   // Community/house moderators
 } as const;
 
 export const ROLES: readonly string[] = Object.values(ROLES_ENUMS);
@@ -26,23 +20,12 @@ export const ROLES_MAP = Object.fromEntries(
 
 export const ALLOWED_ROLES = [
   ROLES_ENUMS.ADMIN,
-  ROLES_ENUMS.FACULTY,
-  ROLES_ENUMS.CR,
-  ROLES_ENUMS.FACULTY,
-  ROLES_ENUMS.CHIEF_WARDEN,
-  ROLES_ENUMS.WARDEN,
-  ROLES_ENUMS.ASSISTANT_WARDEN,
-  ROLES_ENUMS.MMCA,
-  ROLES_ENUMS.HOD,
-  ROLES_ENUMS.GUARD,
-  ROLES_ENUMS.LIBRARIAN,
-  ROLES_ENUMS.STUDENT,
+  ROLES_ENUMS.BUILDER,
+  ROLES_ENUMS.MENTOR,
+  ROLES_ENUMS.MODERATOR,
   "dashboard"
 ];
 
-// export const DASHBOARD_ROLES = [
-
-// ]
 export const GENDER = {
   MALE: "male",
   FEMALE: "female",
@@ -124,89 +107,6 @@ export const passwordSchema = z
     }
   );
 
-export const Programmes = {
-  dual_degree: {
-    name: "Dual Degree",
-    scheme: "dualdegree",
-    identifiers: ["dcs", "dec"],
-    duration: 5,
-  },
-  btech: {
-    name: "B.Tech",
-    scheme: "scheme",
-    identifiers: [
-      "bce",
-      "bme",
-      "bms",
-      "bma",
-      "bph",
-      "bee",
-      "bec",
-      "bcs",
-      "bch",
-    ],
-    duration: 4,
-  },
-  barch: {
-    name: "B.Arch",
-    scheme: "scheme",
-    identifiers: ["bar"],
-    duration: 5,
-  },
-  mtech: {
-    name: "M.Tech",
-    scheme: "mtech",
-    identifiers: [
-      "mce",
-      "mme",
-      "mms",
-      "mma",
-      "mph",
-      "mee",
-      "mec",
-      "mcs",
-      "mch",
-    ],
-    duration: 2,
-  },
-};
-
-export const getProgrammeByIdentifier = (
-  identifier: string,
-  defaultBTech: boolean
-): (typeof Programmes)[keyof typeof Programmes] => {
-  for (const programme of Object.values(Programmes)) {
-    if (programme.identifiers.includes(identifier)) {
-      if (
-        defaultBTech &&
-        programme.scheme === Programmes["dual_degree"].scheme
-      ) {
-        return Programmes["btech"]; // Return B.Tech if defaultBTech is true
-      }
-      return programme.name ? programme : Programmes["btech"]; // Default to B.Tech if no name is found
-    }
-  }
-  return Programmes["btech"];
-};
-export const getAcademicYear = (rollNo: z.infer<typeof rollNoSchema>) => {
-  const year = Number.parseInt(rollNo.slice(0, 2));
-  const programme = getProgrammeByIdentifier(
-    rollNo.toLowerCase().substring(2, 5),
-    false
-  );
-  const currentYearFirstTwoDigits = new Date()
-    .getFullYear()
-    .toString()
-    .slice(0, 2); // Get first two digits of current year
-  const batchYear = year + programme.duration;
-  const currentYear = new Date().getFullYear() % 100; // Get last two digits of current year
-  return {
-    start: currentYearFirstTwoDigits + year,
-    end: currentYearFirstTwoDigits + batchYear,
-    label: `${currentYearFirstTwoDigits + year}-${batchYear}`,
-    year:
-      batchYear - currentYear + 1 > 0
-        ? formatNumberOrdinal(batchYear - currentYear + 1)
-        : "Pass out",
-  };
-};
+// Programme/batch management removed - not needed for builder community
+// Builders can optionally specify graduation year in their profile
+// No need for complex roll number parsing or programme tracking

@@ -45,19 +45,12 @@ export const publicRouteHandleAbsolute = (route: string, pathname: string) => {
   return false;
 };
 
+// Simplified dashboard routes for builder community
 export const dashboardRoutes = [
   ROLES_ENUMS.ADMIN,
-  ROLES_ENUMS.FACULTY,
-  ROLES_ENUMS.CR,
-  ROLES_ENUMS.FACULTY,
-  ROLES_ENUMS.CHIEF_WARDEN,
-  ROLES_ENUMS.WARDEN,
-  ROLES_ENUMS.ASSISTANT_WARDEN,
-  ROLES_ENUMS.MMCA,
-  ROLES_ENUMS.HOD,
-  ROLES_ENUMS.GUARD,
-  ROLES_ENUMS.LIBRARIAN,
-  ROLES_ENUMS.STUDENT,
+  ROLES_ENUMS.BUILDER,
+  ROLES_ENUMS.MENTOR,
+  ROLES_ENUMS.MODERATOR,
 ];
 
 export type DashboardRoute = (typeof dashboardRoutes)[number];
@@ -152,13 +145,6 @@ export const auth_SUBDOMAIN_TO_PATH_REWRITES_Map = new Map<
     roles: string[];
   }
 >([
-  [
-    "guard",
-    {
-      path: "guard",
-      roles: [ROLES_ENUMS.GUARD, ROLES_ENUMS.ADMIN],
-    },
-  ],
   [
     "admin",
     {
