@@ -2,7 +2,7 @@
 
 **Nerdy Network** is a builder-focused social platform for college students - think GitHub + Twitter + Hogwarts for student builders. It's where students log their daily progress, compete in house challenges, and build in public together.
 
-## 🎯 What is Nerdy Network?
+## What is Nerdy Network?
 
 Nerdy Network transforms the traditional college experience into a gamified builder community:
 
@@ -12,30 +12,30 @@ Nerdy Network transforms the traditional college experience into a gamified buil
 - **Community**: Share projects, get feedback, and connect with fellow builders
 - **Accountability**: Track your builder journey and maintain momentum
 
-## ✨ Key Features
+## Key Features
 
-### 🏗️ Build in Public System
+### Build in Public System
 - Daily progress logging with 6 categories (Code, Design, Research, Shipping, Learning, Planning)
 - 365-day activity heatmap visualization
 - Streak tracking (current + longest)
 - Milestone badges (7/30/100 day achievements)
 - Auto-sharing progress to community feed
 
-### 🏰 House System
-- 4 Hogwarts-inspired houses (🦁 🐍 🦅 🦡)
+### House System
+- 4 Hogwarts-inspired houses
 - Quiz-based house sorting
 - House-specific feeds and pages
 - Weekly house leaderboard
 - House points for activities
 
-### 🎮 Gamification
+### Gamification
 - Upvote/downvote system
-- Quick reactions (🔥 🚀 💡)
+- Quick reactions
 - Achievement badges
 - Progress intensity tracking
 - Weekly top builders
 
-### 👥 Community Features
+### Community Features
 - Create and share posts
 - Comment threading
 - Hot/New/Top sorting
@@ -43,14 +43,14 @@ Nerdy Network transforms the traditional college experience into a gamified buil
 - Category filtering
 - Edit/delete functionality
 
-### 🛡️ Moderation
+### Moderation
 - Report system (5 report types)
 - Moderator dashboard
 - Content flagging
 - Action tracking
 - Stats visualization
 
-## 🏗️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - **Framework**: Next.js 15.5.9 (App Router)
@@ -71,7 +71,7 @@ Nerdy Network transforms the traditional college experience into a gamified buil
 - **Deployment**: Vercel (Platform) + Cloudflare (Assets)
 - **File Storage**: Cloudflare R2
 
-## 📁 Project Structure
+## Project Structure
 
 ```bash
 /v0.3
@@ -91,7 +91,7 @@ Nerdy Network transforms the traditional college experience into a gamified buil
   /README.md           # This file
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js 22.x
@@ -146,7 +146,7 @@ npm run dev
 
 Visit `http://localhost:3000` to see the app!
 
-## 📚 Documentation
+## Documentation
 
 Comprehensive documentation is available in the `/docs` directory:
 
@@ -156,27 +156,27 @@ Comprehensive documentation is available in the `/docs` directory:
 - **[Cleanup Summary](./CLEANUP_SUMMARY.md)** - Recent codebase cleanup details
 - **[Feature Analysis](./IRRELEVANT_FEATURES_ANALYSIS.md)** - Removed features documentation
 
-## 🎯 Current Status
+## Current Status
 
 **Overall Progress**: 40/77 features (52%)
 
-### ✅ Completed Systems (100%)
+### Completed Systems (100%)
 - House System (6/6 features)
 - Gamification (7/7 features)
 - House Points (4/4 features)
 - Moderation (5/5 features)
 
-### 🚧 In Progress
+### In Progress
 - Build in Public (9/11 - 82%)
 - Community Features (8/12 - 67%)
 - User Profile (4/6 - 67%)
 
-### 📋 Planned
+### Planned
 - Notifications (0/5)
 - Projects System (0/6)
 - Discovery Features (0/8)
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
@@ -194,17 +194,17 @@ We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for gu
 - Conventional commits
 - Meaningful commit messages
 
-## 📝 License
+## License
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Built with ❤️ by the Nerdy Network team
 - Inspired by GitHub, Twitter, and Hogwarts
 - Powered by the builder community
 
-## 📧 Contact
+## Contact
 
 - **Website**: [nerdynet.co](https://nerdynet.co)
 - **Platform**: [app.nerdynet.co](https://app.nerdynet.co)
@@ -212,4 +212,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-**Built for builders, by builders.** 🚀
+**Built for builders, by builders.**
