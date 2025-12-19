@@ -13,23 +13,13 @@ export const UN_PROTECTED_API_ROUTES = ["/api/auth/*"];
 const RAW_PUBLIC_ROUTES: RoutePattern[] = [
   "/", // home
   "/about",
-  "/results",
-  "/results/:roll",
-  "/syllabus",
-  "/syllabus/:branch",
-  "/classroom-availability",
-  "/academic-calendar",
-  "/schedules",
-  "/schedules/:branch",
-  "/schedules/:branch/:year/:semester",
-  "/schedules/:branch/:year/:semester/:section",
+  // Academic routes removed - not needed for builder community
   "/announcements",
   "/polls",
   "/unauthorized",
   "/community",
   "/community/:postId",
-  "/whisper-room/feed/:postId",
-  "/whisper-room/whisper",
+  // Whisper room removed - conflicts with build-in-public philosophy
 ];
 
 export const PUBLIC_ROUTES = RAW_PUBLIC_ROUTES.map((route) => ({
@@ -81,47 +71,14 @@ export const RAW_PRIVATE_ROUTES: RoutePattern[] = [
   "/announcements/create",
   "/community/create",
   "/community/edit",
-  "/whisper-room/feed",
-  "/whisper-room/feed/*",
-  "/whisper-room/whisper",
+  // Whisper room removed
 ];
 
 export const PRIVATE_ROUTES = RAW_PRIVATE_ROUTES.map((route) => ({
   pattern: toRegex(route),
 }));
 
-export const HOSTEL_AUTHORIZED_ROUTES = [
-  ROLES_ENUMS.MMCA,
-  ROLES_ENUMS.ASSISTANT_WARDEN,
-  ROLES_ENUMS.WARDEN,
-];
-export const HOSTEL_ACCESSED_PATHS = [
-  "outpass-requests",
-  "outpass-logs",
-  "students",
-  "rooms",
-  "allotment",
-  "allotment-by-excel",
-];
-export const isHostelRoute = (pathname: string) => {
-  if (
-    pathname.split("/").length < 2 ||
-    !HOSTEL_AUTHORIZED_ROUTES.some((role) => pathname.slice(1).startsWith(role))
-  ) {
-    return {
-      isHostelRoute: false,
-      route: "",
-    };
-  }
-  const [, , route] = pathname.split("/");
-  const path = HOSTEL_ACCESSED_PATHS.find((path) => {
-    return route === path;
-  });
-  return {
-    isHostelRoute: !!path,
-    route: route,
-  };
-};
+// Hostel authorization removed - not needed for builder community
 
 /**
  * Check if the user is authorized to access the given route.
