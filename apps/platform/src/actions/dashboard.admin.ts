@@ -481,11 +481,7 @@ export async function updateUser(
   try {
     await db.update(users).set(data).where(eq(users.id, userId)).execute();
     const user = await getUser(userId);
-    if (data.hostelId && user) {
-      console.log("Hostel updating for user:", user.email);
-      
-      console.log("Hostel updated for user:", user.email);
-    }
+    // Hostel management removed - no longer needed for builder community
     return user;
   } catch (error) {
     console.error(error);
