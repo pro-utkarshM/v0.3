@@ -75,7 +75,6 @@ export const quick_links: RouterCardLink[] = [
     description: "Log your daily building progress.",
     allowed_roles: ["*"],
     category: "community",
-    isNew: true,
   },
   {
     title: "House Cup",
@@ -84,7 +83,6 @@ export const quick_links: RouterCardLink[] = [
     description: "View house standings and leaderboard.",
     allowed_roles: ["*"],
     category: "community",
-    isNew: true,
   },
   {
     title: "Announcements",
