@@ -5,7 +5,7 @@ export const orgConfig = {
   domain: "nerdynet.co",
   website: "https://nerdynet.co",
   logo: "https://nerdynet.co/logo.svg",
-  logoSquare: "https://nerdynet.co/logo-square.svg",
+  logoSquare: "https://nerdynet.co/logo-square.png",
   mailSuffix: "@nerdynet.co",
 
   // Enhanced social profiles
@@ -57,7 +57,7 @@ export const appConfig = {
     "os.nerdynet.co",
   ],
   url: "https://app.nerdynet.co",
-  logoSquare: "/logo-square.svg",
+  logoSquare: "/logo-square.png",
   logo: "/logo.svg",
   logoDark: "/logo-dark.svg",
   description:
@@ -73,21 +73,21 @@ export const appConfig = {
   creator: "Nerdy Network",
   authors: [
     {
-      name: "Kanak Kholwal",
-      url: "https://kanak.eu.org",
-      image: "https://github.com/kanakkholwal.png",
-      email: "me@kanak.eu.org",
+      name: "Nerdy Network",
+      url: "https://aadrika.nerdynet.co",
+      image: "https://github.com/nerdynetco.png",
+      email: "me@nerdynet.co",
     },
   ],
   githubRepo:
-    "https://github.com/pro-utkarshm/v0.2",
-  githubUri: "pro-utkarshm/v0.2",
+    "https://github.com/nerdynetco/website",
+  githubUri: "pro-nerdynetco/website",
   socials: {
-    twitter: "https://twitter.com/nerdynetworkco?utm_source=app.nith.eu.org&utm_medium=direct&utm_campaign=personal_brand",
-    linkedin: "https://linkedin.com/in/nerdynetworkco?utm_source=app.nith.eu.org&utm_medium=direct&utm_campaign=personal_brand",
-    instagram: "https://instagram.com/nerdynetworkco?utm_source=app.nith.eu.org&utm_medium=direct&utm_campaign=personal_brand",
-    github: "https://github.com/nerdynetwork?utm_source=app.nith.eu.org&utm_medium=direct&utm_campaign=personal_brand",
-    website: "https://nerdynet.co/?utm_source=app.nith.eu.org&utm_medium=direct&utm_campaign=personal_brand",
+    twitter: "https://twitter.com/nerdynetworkco",
+    linkedin: "https://linkedin.com/in/nerdynetworkco",
+    instagram: "https://instagram.com/nerdynetworkco",
+    github: "https://github.com/nerdynetwork",
+    website: "https://nerdynet.co/",
   },
 
   verifications: {
