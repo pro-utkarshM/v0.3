@@ -26,7 +26,7 @@ export default async function HomePage() {
   const session = await getSession();
   const isSorted = houseState.isSorted;
   const house = houseState.house;
-  const links = getLinksByRole(session?.user?.other_roles[0] ?? ROLES_ENUMS.BUILDER, quick_links);
+  const links = getLinksByRole(session?.user?.role ?? ROLES_ENUMS.BUILDER, quick_links);
 
   if (session?.user && !isSorted) {
     return (

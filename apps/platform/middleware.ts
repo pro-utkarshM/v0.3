@@ -165,7 +165,7 @@ export async function middleware(request: NextRequest) {
             new URL(
               request.nextUrl.pathname.replace(
                 "/dashboard",
-                session?.user.other_roles[0]
+                session?.user.role
               ),
               request.url
             )

@@ -3,9 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useState, useTransition } from "react";
-import { reactToPost, reactToComment, REACTIONS, type ReactionType } from "~/actions/reactions";
+import { reactToPost, reactToComment } from "~/actions/reactions";
 import toast from "react-hot-toast";
 import { Smile } from "lucide-react";
+import { REACTIONS, ReactionType } from "~/constants/reactions";
 
 interface ReactionPickerProps {
   itemId: string;

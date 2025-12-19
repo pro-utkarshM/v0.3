@@ -3,17 +3,12 @@
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { auth } from "~/auth";
+import { ReactionType } from "~/constants/reactions";
 import dbConnect from "~/lib/dbConnect";
 import CommunityPost from "~/models/community";
 import { CommunityComment } from "~/models/community";
 
-export type ReactionType = "fire" | "rocket" | "bulb";
 
-export const REACTIONS = {
-  fire: { emoji: "🔥", label: "Fire" },
-  rocket: { emoji: "🚀", label: "Rocket" },
-  bulb: { emoji: "💡", label: "Idea" },
-} as const;
 
 /**
  * Toggle reaction on a post

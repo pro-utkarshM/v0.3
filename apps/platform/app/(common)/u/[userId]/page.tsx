@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getSession } from "~/auth/server";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
 import ProgressHeatmap, { ProgressHeatmapSkeleton } from "app/(common)/progress/heatmap";
 import { getYearProgressLogs, calculateStreak } from "~/actions/progress";
@@ -17,10 +17,7 @@ import { db } from "~/db/connect";
 import { users } from "~/db/schema/auth-schema";
 import { eq } from "drizzle-orm";
 
-export const metadata: Metadata = {
-  title: "My Profile",
-  description: "View your builder profile and progress",
-};
+
 
 async function ProfileContent({ userId }: { userId: string }) {
   // Fetch user data
@@ -35,11 +32,11 @@ async function ProfileContent({ userId }: { userId: string }) {
       role: users.role,
     })
     .from(users)
-    .where(eq(users.id, userId))
+    .where(eq(users.username, userId))
     .limit(1);
 
   if (!userData || userData.length === 0) {
-    redirect("/auth/sign-in");
+    return notFound();
   }
 
   const user = userData[0];
@@ -112,17 +109,13 @@ async function ProfileContent({ userId }: { userId: string }) {
   );
 }
 
-export default async function ProfilePage() {
-  const session = await getSession();
-
-  if (!session?.user) {
-    redirect("/auth/sign-in?callbackUrl=/profile");
-  }
+export default async function ProfilePage({params}: {params: Promise<{userId: string}>}) {
+  const userId = (await params).userId;
 
   return (
     <div className="container max-w-6xl py-8">
       <Suspense fallback={<ProgressHeatmapSkeleton />}>
-        <ProfileContent userId={session.user.id} />
+        <ProfileContent userId={userId} />
       </Suspense>
     </div>
   );

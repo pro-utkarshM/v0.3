@@ -60,8 +60,6 @@ export default function SignUpForm() {
         name: data.name,
         callbackURL: redirect,
         username: data.email.split("@")[0], // Auto-generate username
-        department: getDepartmentName("ece"), // Default or inferred
-        other_roles: ["builder"], // Default role for new users
       },
       {
         onRequest: () => setIsLoading(true),

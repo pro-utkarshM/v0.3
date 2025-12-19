@@ -28,10 +28,6 @@ interface Props {
 
 const profileSchema = z.object({
   gender: z.enum(["male", "female", "not_specified"]),
-  other_emails: z
-    .array(z.union([emailSchema, z.string().email()]))
-    .optional()
-    .default([]),
 });
 
 const passwordSchema = z.object({
@@ -63,7 +59,6 @@ function ProfileSection({ currentUser }: Props) {
   const form = useForm({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      other_emails: currentUser.other_emails || [],
       gender: currentUser.gender as "male" | "female" | "not_specified",
     },
   });
@@ -144,32 +139,6 @@ function ProfileSection({ currentUser }: Props) {
             </p>
           </div>
           <div className="md:col-span-2 space-y-4">
-            <FormField
-              control={form.control}
-              name="other_emails"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        placeholder="alt@example.com, work@example.com"
-                        className="pl-9"
-                        value={field.value?.join(", ")}
-                        onChange={(e) =>
-                          field.onChange(
-                            e.target.value
-                              .split(",")
-                              .map((email) => email.trim())
-                          )
-                        }
-                      />
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <div className="flex justify-end">
               <Button
                 type="submit"

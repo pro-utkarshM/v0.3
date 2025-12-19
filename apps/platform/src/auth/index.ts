@@ -44,7 +44,7 @@ export const betterAuthOptions = {
     requireEmailVerification: true,
     sendResetPassword: async ({ user, url, token }, request) => {
       // const verification_url = `${baseUrl}${RESET_PASSWORD_PATH_PREFIX}${token}`;
-      const reset_link = new URL(process.env.BASE_URL as string);
+      const reset_link = new URL(process.env.BASE_MAIL_SERVER_URL as string);
       reset_link.pathname = RESET_PASSWORD_PATH_PREFIX;
       reset_link.searchParams.set("token", token);
 
@@ -82,7 +82,7 @@ export const betterAuthOptions = {
   emailVerification: {
     sendOnSignUp: true,
     sendVerificationEmail: async ({ user, url, token }, request) => {
-      const verification_url = new URL(process.env.BETTER_AUTH_URL as string);
+      const verification_url = new URL(process.env.BASE_MAIL_SERVER_URL as string);
       verification_url.pathname = VERIFY_EMAIL_PATH_PREFIX;
       verification_url.searchParams.set("token", token);
       try {
@@ -144,31 +144,16 @@ export const betterAuthOptions = {
         input: false,
         defaultValue: "user",
       },
-      other_roles: {
-        type: "string[]",
-        required: true,
-        input: true,
-      },
-      other_emails: {
-        type: "string[]",
-        required: false,
-        input: false,
-      },
       gender: {
         type: "string",
-        input: true,
+        input: false,
         defaultValue: "not_specified",
       },
       username: {
         type: "string",
         required: true,
         unique: true,
-        input: true,
-      },
-      department: {
-        type: "string",
-        required: true,
-        input: true,
+        input: false,
       },
     },
   },

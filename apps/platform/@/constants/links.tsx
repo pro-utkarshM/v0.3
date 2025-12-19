@@ -38,10 +38,10 @@ import { toRegex } from "~/utils/string";
 
 export type AllowedRoleType =
   | Session["user"]["role"]
-  | Session["user"]["other_roles"][number]
+  | Session["user"]["role"]
   | "*"
   | `!${Session["user"]["role"]}`
-  | `!${Session["user"]["other_roles"][number]}`;
+  | `!${Session["user"]["role"]}`;
 
 export type RouterCardLink = {
   href: string;
@@ -267,7 +267,7 @@ export type NavLink = RouterCardLink & {
 };
 
 export const getNavLinks = (user?: Session["user"]): NavLink[] => {
-  const linksByRole = [user?.role, ...(user?.other_roles || [])]
+  const linksByRole = [user?.role, ...(user?.role || [])]
     .map((role) => getLinksByRole("*", quick_links))
     .flat() // filter out unique links
     .filter(
@@ -280,7 +280,7 @@ export const getNavLinks = (user?: Session["user"]): NavLink[] => {
   if (user) {
    linksByRole.push({
       title: "Dashboard",
-      href: "/" + user.other_roles[0],
+      href: "/" + user.role,
       description: "Manage your account settings.",
       Icon: PiSquaresFourDuotone,
       category: "dashboard",
@@ -288,7 +288,7 @@ export const getNavLinks = (user?: Session["user"]): NavLink[] => {
     });
     linksByRole.push({
       title: "Settings",
-      href: user.other_roles[0] + "/settings",
+      href: user.role + "/settings",
       description: "Manage your account settings.",
       Icon: PiGearDuotone,
       category: "dashboard",
