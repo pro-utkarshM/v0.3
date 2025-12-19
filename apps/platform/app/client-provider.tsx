@@ -53,7 +53,8 @@ export function Provider({ children }: { children: React.ReactNode }) {
         }}
       />
       <Toaster position="bottom-right" richColors />
-      <div className="fixed bottom-2 right-2 left-auto top-auto z-50 flex gap-1 items-center">
+      {/* COMMENTED OUT - Visitor tracking disabled */}
+      {/* <div className="fixed bottom-2 right-2 left-auto top-auto z-50 flex gap-1 items-center">
         <span>
           <img
             height={20}
@@ -64,7 +65,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
             loading="lazy"
           />
         </span>
-      </div>
+      </div> */}
     </QueryClientProvider>
   );
 }

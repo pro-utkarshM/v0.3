@@ -1,3 +1,5 @@
+// COMMENTED OUT - GitHub features disabled
+/*
 import { cn } from "@/lib/utils";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { Star } from "lucide-react";
@@ -28,4 +30,10 @@ export default async function GithubStars({
       </Link>
     </Button>
   );
+}
+*/
+
+// Placeholder component to prevent import errors
+export default function GithubStars({ className }: { className?: string }) {
+  return null;
 }

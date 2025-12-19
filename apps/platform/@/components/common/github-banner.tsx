@@ -1,3 +1,5 @@
+// COMMENTED OUT - GitHub features disabled
+/*
 import { StaggerChildrenContainer, StaggerChildrenItem } from "@/components/animation/motion";
 import { Icon, IconType } from "@/components/icons";
 import { cn } from "@/lib/utils";
@@ -29,7 +31,7 @@ export default async function GithubBanner({ className }: GithubBannerProps) {
     <section className={cn("py-20 lg:py-28 overflow-hidden", className)}>
       <StaggerChildrenContainer className="container mx-auto px-4 max-w-5xl">
 
-        {/* --- HEADER --- */}
+        {/* --- HEADER --- *\/}
         <div className="text-center space-y-4 mb-12">
           <div className="inline-flex items-center rounded-full border border-border/40 bg-muted/50 px-3 py-1 text-xs font-medium text-muted-foreground backdrop-blur-sm">
             <Github className="mr-2 size-3" /> Open Source
@@ -43,11 +45,11 @@ export default async function GithubBanner({ className }: GithubBannerProps) {
           </p>
         </div>
 
-        {/* --- REPO PREVIEW CARD --- */}
+        {/* --- REPO PREVIEW CARD --- *\/}
         <StaggerChildrenItem>
           <div className="group relative w-full overflow-hidden rounded-3xl border border-border/40 bg-card/60 backdrop-blur-sm shadow-xl transition-all hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/5">
 
-            {/* Background Grid Pattern */}
+            {/* Background Grid Pattern *\/}
             <div className="absolute inset-0 -z-10 bg-[radial-gradient(#8080801a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_100%,transparent_100%)] opacity-70" />
             <div className="pointer-events-none absolute right-0 bottom-0 z-0 h-2/3 w-2/3">
               <svg
@@ -83,7 +85,7 @@ export default async function GithubBanner({ className }: GithubBannerProps) {
             </div>
             <div className="flex flex-col lg:flex-row">
 
-              {/* Left: Repo Info */}
+              {/* Left: Repo Info *\/}
               <div className="flex-1 p-8 lg:p-12 space-y-8">
                 <div>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2 font-mono">
@@ -95,7 +97,7 @@ export default async function GithubBanner({ className }: GithubBannerProps) {
                   </h3>
                 </div>
 
-                {/* Stats Row */}
+                {/* Stats Row *\/}
                 <div className="flex items-center gap-6 sm:gap-12 border-t border-border/40 pt-8">
                   <StatItem
                     Icon={Star}
@@ -120,7 +122,7 @@ export default async function GithubBanner({ className }: GithubBannerProps) {
                 </div>
               </div>
 
-              {/* Right: Actions (Desktop) / Bottom (Mobile) */}
+              {/* Right: Actions (Desktop) / Bottom (Mobile) *\/}
               <div className="lg:w-72 bg-muted/20 border-t lg:border-t-0 lg:border-l border-border/40 p-8 flex flex-col justify-center gap-4">
                 <ButtonLink
                   href={marketwiseLink(appConfig.githubRepo, {
@@ -152,7 +154,7 @@ export default async function GithubBanner({ className }: GithubBannerProps) {
 
         </StaggerChildrenItem>
 
-        {/* --- SOCIAL DOCK (Footer) --- */}
+        {/* --- SOCIAL DOCK (Footer) --- *\/}
         <StaggerChildrenItem className="mt-16 text-center space-y-6">
           <div className="space-y-1">
             <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Maintained By</h4>
@@ -171,7 +173,7 @@ export default async function GithubBanner({ className }: GithubBannerProps) {
               >
                 <Icon name={key} className="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:text-primary" />
 
-                {/* Tooltip */}
+                {/* Tooltip *\/}
                 <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-primary/10 text-primary text-xs font-semibold rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none capitalize whitespace-nowrap backdrop-blur font-mono">
                   {key}
                 </span>
@@ -199,4 +201,10 @@ function StatItem({ Icon, value, label, href }: { Icon: React.FC<React.SVGProps<
       </span>
     </a>
   )
+}
+*/
+
+// Placeholder component to prevent import errors
+export default function GithubBanner({ className }: { className?: string }) {
+  return null;
 }

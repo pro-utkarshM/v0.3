@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
-import { GoogleAnalytics } from "@next/third-parties/google";
+// COMMENTED OUT - Analytics disabled
+// import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Inter as FontSans, Space_Mono } from "next/font/google";
 import Script from "next/script";
@@ -127,7 +128,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
             src={"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + appConfig.verifications.google_adsense}
             crossOrigin="anonymous"
           />
-          <GoogleAnalytics gaId={appConfig.verifications.google_analytics} />
+          {/* COMMENTED OUT - Analytics disabled */}
+          {/* <GoogleAnalytics gaId={appConfig.verifications.google_analytics} /> */}
         </>
         )}
       </body>

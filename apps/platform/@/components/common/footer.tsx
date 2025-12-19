@@ -11,7 +11,8 @@ const footerSections = [
     title: "Community",
     links: [
       ...supportLinks,
-      { title: "GitHub Discussions", href: `${appConfig.githubRepo}/discussions` },
+      // COMMENTED OUT - GitHub features disabled
+      // { title: "GitHub Discussions", href: `${appConfig.githubRepo}/discussions` },
     ]
   },
   {
@@ -45,7 +46,8 @@ export default async function Footer() {
             </p>
 
             <div className="flex flex-col gap-4">
-              <GithubStars />
+              {/* COMMENTED OUT - GitHub features disabled */}
+              {/* <GithubStars /> */}
               <SocialBar className="ml-0" />
             </div>
 

@@ -356,12 +356,10 @@ export const getHostelRoutes = (moderator: string, slug: string) =>
     },
   ] as RouterCardLink[];
 
-const hostelAccessRoles = [
-  ROLES_ENUMS.ADMIN,
-  ROLES_ENUMS.ASSISTANT_WARDEN,
-  ROLES_ENUMS.WARDEN,
-  ROLES_ENUMS.MMCA,
-]
+// REMOVED - Hostel system deleted
+// const hostelAccessRoles = [
+//   ROLES_ENUMS.ADMIN,
+// ]
 type SideNavLink = {
   title: string;
   icon: React.FC<React.SVGProps<SVGSVGElement>>;
@@ -377,21 +375,22 @@ export const getSideNavLinks = (role: string, prefixPath?: string, hostelSlug?: 
   // Create a shallow copy of the array to avoid mutating the original
   let sidebar_links_modified = [...sidebar_links];
 
-  if (hostelAccessRoles.includes(role as typeof hostelAccessRoles[number]) && hostelSlug) {
-    sidebar_links_modified.splice(-2, 0, {
-      title: "Hostel Actions",
-      icon: PiBuildingsDuotone,
-      path: `/h/${hostelSlug}`,
-      allowed_roles: hostelAccessRoles,
-      category: "view",
-      items: getHostelRoutes(role, hostelSlug).map((route) => ({
-        title: route.title,
-        path: route.href.replace(`/${role}/h/${hostelSlug}`, ""),
-        allowed_roles: hostelAccessRoles,
-        disabled: route?.disabled,
-      })),
-    })
-  }
+  // REMOVED - Hostel system deleted
+  // if (hostelAccessRoles.includes(role as typeof hostelAccessRoles[number]) && hostelSlug) {
+  //   sidebar_links_modified.splice(-2, 0, {
+  //     title: "Hostel Actions",
+  //     icon: PiBuildingsDuotone,
+  //     path: `/h/${hostelSlug}`,
+  //     allowed_roles: hostelAccessRoles,
+  //     category: "view",
+  //     items: getHostelRoutes(role, hostelSlug).map((route) => ({
+  //       title: route.title,
+  //       path: route.href.replace(`/${role}/h/${hostelSlug}`, ""),
+  //       allowed_roles: hostelAccessRoles,
+  //       disabled: route?.disabled,
+  //     })),
+  //   })
+  // }
 
   return sidebar_links_modified
     .filter(

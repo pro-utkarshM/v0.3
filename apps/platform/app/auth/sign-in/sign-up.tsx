@@ -61,7 +61,7 @@ export default function SignUpForm() {
         callbackURL: redirect,
         username: data.email.split("@")[0], // Auto-generate username
         department: getDepartmentName("ece"), // Default or inferred
-        other_roles: ["student"],
+        other_roles: ["builder"], // Default role for new users
       },
       {
         onRequest: () => setIsLoading(true),

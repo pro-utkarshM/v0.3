@@ -162,12 +162,6 @@ export const betterAuthOptions = {
         required: false,
         input: false,
       },
-      hostelId: {
-        type: "string",
-        required: false,
-        input: false,
-        defaultValue: "not_specified",
-      },
       gender: {
         type: "string",
         input: true,
