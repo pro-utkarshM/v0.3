@@ -21,9 +21,6 @@ const footerSections = [
       { title: "About Us", href: "/about" },
       { title: "Contact", href: "/contact" },
       { title: "Terms of Service", href: "/terms" },
-      { title: "Privacy Policy", href: "/privacy-policy" },
-      { title: "Cookie Policy", href: "/sorting" },
-      { title: "Features", href: "/#features" },
     ],
   },
 ];

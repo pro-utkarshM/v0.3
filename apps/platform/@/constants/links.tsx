@@ -1,23 +1,14 @@
 import {
-  PiBankDuotone,
   PiBedDuotone,
-  PiBookOpenTextDuotone,
-  PiBooksDuotone,
-  PiBuildingsDuotone,
-  PiCalendarCheckDuotone,
-  PiCalendarDuotone,
   PiCalendarPlusDuotone,
-  PiChalkboardTeacherDuotone,
   PiChartBarDuotone,
   PiChartLineUpDuotone, // CGPA/Merit Allotment
   PiClockCounterClockwiseDuotone,
-  PiDoorDuotone, // History/Logs
   PiFileCsvDuotone,
   PiGearDuotone,
   PiGhostDuotone,
   PiGiftDuotone,
   PiMegaphoneDuotone,
-  PiScrollDuotone,
   PiSquaresFourDuotone, // Bulk Import (Spreadsheet)
   PiStudentDuotone,
   PiTicketDuotone,
