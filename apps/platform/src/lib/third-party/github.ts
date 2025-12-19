@@ -45,6 +45,8 @@ export const getRepoStarGazers = cache(async (
     return 12; // Fallback value
   }
 })
+// COMMENTED OUT - Visitor tracking disabled
+/*
 export const extractVisitorCount = cache(async (): Promise<number> => {
   const url =
     "https://visitor-badge.laobi.icu/badge?page_id=nith_portal.visitor-badge";
@@ -79,6 +81,11 @@ export const extractVisitorCount = cache(async (): Promise<number> => {
     console.error("Error extracting visitor count:", error);
     throw error;
   }
+})
+*/
+// Placeholder function
+export const extractVisitorCount = cache(async (): Promise<number> => {
+  return 0;
 })
 export const getRepoStats = cache(async (
   repoUri = appConfig.githubUri

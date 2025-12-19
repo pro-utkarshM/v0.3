@@ -73,9 +73,11 @@ export function IntroSection({
 }) {
   // Flatten stats logic for display
   const displayStats = [
-    { label: "Impressions", value: stats.visitors, icon: BarChart2 },
+    // COMMENTED OUT - Visitor tracking disabled
+    // { label: "Impressions", value: stats.visitors, icon: BarChart2 },
     { label: "Active Users", value: stats.userCount, icon: Users },
-    { label: "GitHub Stars", value: stats.githubStats?.stars || 0, icon: Globe },
+    // COMMENTED OUT - GitHub features disabled
+    // { label: "GitHub Stars", value: stats.githubStats?.stars || 0, icon: Globe },
     { label: "Live Sessions", value: stats.sessionCount, icon: BarChart3 },
   ];
 
