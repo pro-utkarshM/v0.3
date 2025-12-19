@@ -112,7 +112,7 @@ export async function getHouseMembers(houseName: string, limit: number = 20) {
         name: users.name,
         username: users.username,
         image: users.image,
-        department: users.department,
+        role: users.role,
         createdAt: users.createdAt,
       })
       .from(users)
