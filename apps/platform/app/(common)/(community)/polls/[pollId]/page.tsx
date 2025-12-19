@@ -7,7 +7,8 @@ import { notFound } from "next/navigation";
 import { getPollById, updateVotes } from "src//actions/common.poll";
 import { auth } from "~/auth";
 import { PollRender } from "../components/poll-component";
-import Polling from "./polling";
+// COMMENTED OUT - Polling component needs rewrite to match poll model
+// import Polling from "./polling";
 
 import AdUnit from "@/components/common/adsense";
 import EmptyArea from "@/components/common/empty-area";
@@ -90,11 +91,13 @@ export default async function Dashboard({ params }: Props) {
         {closesAlready ? (
           <PollRender poll={poll} />
         ) : session?.user ? (
-          <Polling
-            poll={poll}
-            user={session.user}
-            updateVotes={updateVotes.bind(null, poll._id)}
-          />
+          // COMMENTED OUT - Polling component needs rewrite
+          // <Polling
+          //   poll={poll}
+          //   user={session.user}
+          //   updateVotes={updateVotes.bind(null, poll._id)}
+          // />
+          <PollRender poll={poll} />
         ) : (
           <EmptyArea
             title="You need to be logged in to vote on this poll"
