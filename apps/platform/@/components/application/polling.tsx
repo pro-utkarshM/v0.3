@@ -11,9 +11,9 @@ import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 import type { z } from "zod";
 import type { Session } from "~/auth/client";
-import { PollSchema } from "~/constants/community.whispers";
+import { rawPollSchema } from "~/models/poll";
 
-export type PollType = z.infer<typeof PollSchema>;
+export type PollType = z.infer<typeof rawPollSchema>;
 
 export function PollDisplay({
   poll,
