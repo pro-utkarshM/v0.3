@@ -53,10 +53,12 @@ async function ProfileContent({ userId }: { userId: string }) {
   
   const badgeProgress = await getBadgeProgress(userId, streak.currentStreak, totalLogs);
 
-  const memberSince = new Date(user.createdAt).toLocaleDateString("en-US", {
-    month: "long",
-    year: "numeric",
-  });
+  const memberSince = user.createdAt
+    ? new Date(user.createdAt).toLocaleDateString("en-US", {
+        month: "long",
+        year: "numeric",
+      })
+    : "Unknown";
 
   return (
     <div className="space-y-6">
@@ -64,21 +66,27 @@ async function ProfileContent({ userId }: { userId: string }) {
       <Card>
         <CardContent className="pt-6">
           <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
-            <Avatar className="size-24 border-4 border-border">
-              <AvatarImage src={user.image || undefined} alt={user.name} />
-              <AvatarFallback className="text-2xl">
-                {user.name
-                  .split(" ")
-                  .map((n) => n[0])
-                  .join("")
-                  .toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
-
+              <Avatar className="size-24 border-4 border-border">
+                <AvatarImage
+                  src={user.image ?? undefined}
+                  alt={user.name ?? "User avatar"}
+                />
+                <AvatarFallback className="text-2xl">
+                  {(user.name ?? "User")
+                    .split(" ")
+                    .map((n) => n[0])
+                    .join("")
+                    .toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
             <div className="flex-1 space-y-3">
               <div>
-                <h1 className="text-3xl font-bold">{user.name}</h1>
-                <p className="text-muted-foreground">@{user.username}</p>
+                <h1 className="text-3xl font-bold">
+                  {user.name ?? "Unnamed User"}
+                </h1>
+                <p className="text-muted-foreground">
+                  @{user.username ?? "unknown"}
+                </p>
               </div>
 
               <div className="flex flex-wrap gap-2">

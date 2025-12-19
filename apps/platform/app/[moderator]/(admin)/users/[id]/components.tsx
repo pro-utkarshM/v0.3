@@ -81,11 +81,13 @@ const formSchema = z.object({
 export function UserHeader({ user }: { user: UserType }) {
     return (
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 border-b pb-6">
-            <Avatar className="h-20 w-20 border-4 border-background shadow-md">
-                <AvatarImage src={user.image || ""} />
-                <AvatarFallback className="text-2xl font-bold bg-primary/10 text-primary">
-                    {user.name.slice(0, 2).toUpperCase()}
-                </AvatarFallback>
+            <Avatar>
+            <AvatarImage src={user.image ?? undefined} />
+            <AvatarFallback className="text-2xl font-bold bg-primary/10 text-primary">
+                {(user.name ?? "U")
+                .slice(0, 2)
+                .toUpperCase()}
+            </AvatarFallback>
             </Avatar>
             <div className="space-y-1">
                 <h1 className="text-3xl font-bold tracking-tight text-foreground">{user.name}</h1>

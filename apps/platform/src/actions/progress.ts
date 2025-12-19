@@ -80,9 +80,18 @@ export async function createProgressLog(
     await progressLog.save();
 
     // Auto-share to community if requested
-    if (shouldAutoShare && userData.house) {
+    if (
+      shouldAutoShare &&
+      userData.house &&
+      userData.name &&
+      userData.username
+    ) {
       try {
-        await autoShareProgressToFeed(progressLog, userData);
+        await autoShareProgressToFeed(progressLog, {
+          house: userData.house,
+          name: userData.name,
+          username: userData.username,
+        });
       } catch (error) {
         console.error("Failed to auto-share progress:", error);
         // Don't fail the whole operation if sharing fails
