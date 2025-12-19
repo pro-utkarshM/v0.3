@@ -10,7 +10,7 @@ import {
   checkAuthorization,
   dashboardRoutes,
   extractSubdomain,
-  isHostelRoute,
+  // isHostelRoute, // REMOVED - Hostel system deleted
   isRouteAllowed,
   PRIVATE_ROUTES,
   SIGN_IN_PATH,
