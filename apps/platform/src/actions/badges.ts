@@ -2,7 +2,6 @@
 
 import { db } from "~/db/connect";
 import { badgeTypes, userBadges, BADGE_DEFINITIONS } from "~/db/schema/badge-schema";
-import { users } from "~/db/schema/auth-schema";
 import { eq, and } from "drizzle-orm";
 
 /**
@@ -11,14 +10,14 @@ import { eq, and } from "drizzle-orm";
 export async function initializeBadgeTypes() {
   try {
     const existingBadges = await db.select().from(badgeTypes);
-    
+
     if (existingBadges.length === 0) {
       // Insert all badge definitions
       const badgeValues = Object.values(BADGE_DEFINITIONS);
       await db.insert(badgeTypes).values(badgeValues);
       return { success: true, message: "Badge types initialized" };
     }
-    
+
     return { success: true, message: "Badge types already exist" };
   } catch (error) {
     console.error("Failed to initialize badge types:", error);
@@ -32,17 +31,19 @@ export async function initializeBadgeTypes() {
 export async function awardBadge(userId: string, badgeName: string) {
   try {
     // Get badge type
-    const badge = await db
+    const badges = await db
       .select()
       .from(badgeTypes)
       .where(eq(badgeTypes.name, badgeName))
       .limit(1);
+    console.log("Badges found:", badges);
 
-    if (!badge || badge.length === 0) {
-      throw new Error("Badge type not found");
-    }
+      return { success: false, message: "Badge type not found",badge: null};
+    // if (!badges || badges.length === 0) {
+    //   throw new Error("Badge type not found");
+    // }
 
-    const badgeId = badge[0].id;
+    const badgeId = badges[0].id;
 
     // Check if user already has this badge
     const existing = await db
@@ -68,12 +69,12 @@ export async function awardBadge(userId: string, badgeName: string) {
 
     return {
       success: true,
-      message: `Badge "${badge[0].title}" awarded!`,
-      badge: badge[0],
+      message: `Badge "${badges[0].title}" awarded!`,
+      badge: badges[0],
     };
   } catch (error) {
     console.error("Failed to award badge:", error);
-    return { success: false, message: "Failed to award badge" };
+    return { success: false, message: "Failed to award badge",badge: null};
   }
 }
 
@@ -124,7 +125,7 @@ export async function checkAndAwardStreakBadges(userId: string, currentStreak: n
   const results = [];
   for (const badgeName of badgesToAward) {
     const result = await awardBadge(userId, badgeName);
-    if (result.success && result.badge) {
+    if (result?.success && result?.badge) {
       results.push(result.badge);
     }
   }
@@ -151,7 +152,7 @@ export async function checkAndAwardLogBadges(userId: string, totalLogs: number) 
   const results = [];
   for (const badgeName of badgesToAward) {
     const result = await awardBadge(userId, badgeName);
-    if (result.success && result.badge) {
+    if (result?.success && result?.badge) {
       results.push(result.badge);
     }
   }

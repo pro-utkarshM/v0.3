@@ -51,9 +51,6 @@ const userSchema = z.object({
   password: z.string().min(8, "Password must be at least 8 characters"),
   role: z.string().default("user"),
   gender: z.string().default("not_specified"),
-  other_roles: z.array(z.string()).default([]),
-  other_emails: z.array(z.string().email()).default([]),
-  department: z.string({ required_error: "Department is required" }),
 });
 
 export default function CreateNewUser() {
@@ -64,8 +61,6 @@ export default function CreateNewUser() {
       email: "",
       password: "",
       gender: "not_specified",
-      other_roles: [],
-      department: "",
     },
   });
 
@@ -78,10 +73,7 @@ export default function CreateNewUser() {
         role: "user",
         data: {
           gender: data.gender,
-          other_roles: data.other_roles,
-          other_emails: data.other_emails,
           username: data.email.split("@")[0],
-          department: data.department,
         },
       }),
       {
@@ -208,64 +200,7 @@ export default function CreateNewUser() {
                     <Building2 className="h-4 w-4 text-primary" /> Organization & Access
                 </CardTitle>
             </CardHeader>
-            <CardContent className="grid md:grid-cols-2 gap-6">
-                <FormField
-                    control={form.control}
-                    name="department"
-                    render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>Department</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                            <SelectTrigger>
-                            <SelectValue placeholder="Select department" />
-                            </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                            {DEPARTMENTS_LIST.map((dept) => (
-                            <SelectItem key={dept.name} value={dept.name}>
-                                {dept.name}
-                            </SelectItem>
-                            ))}
-                        </SelectContent>
-                        </Select>
-                        <FormMessage />
-                    </FormItem>
-                    )}
-                />
-
-                <FormField
-                    control={form.control}
-                    name="other_roles"
-                    render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>Roles</FormLabel>
-                        <FormControl>
-                        <MultiSelector
-                            values={field.value}
-                            onValuesChange={field.onChange}
-                            loop
-                        >
-                            <MultiSelectorTrigger>
-                            <MultiSelectorInput placeholder="Assign roles..." />
-                            </MultiSelectorTrigger>
-                            <MultiSelectorContent>
-                            <MultiSelectorList>
-                                {ROLES.map((role) => (
-                                <MultiSelectorItem key={role} value={role} className="capitalize">
-                                    {role.replace("_", " ")}
-                                </MultiSelectorItem>
-                                ))}
-                            </MultiSelectorList>
-                            </MultiSelectorContent>
-                        </MultiSelector>
-                        </FormControl>
-                        <FormDescription>Additional system permissions.</FormDescription>
-                        <FormMessage />
-                    </FormItem>
-                    )}
-                />
-            </CardContent>
+       
           </Card>
 
           <div className="flex justify-end">

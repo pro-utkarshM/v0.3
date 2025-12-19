@@ -29,9 +29,10 @@ export const useShare = (data: {
   image?: string;
 }) => {
   
+  const isNativeShareSupported = !!navigator?.share;
 
   const share = async () => {
-    if (navigator.share) {
+    if (navigator?.share) {
       try {
         await navigator.share({
           title: data.title,
@@ -47,7 +48,6 @@ export const useShare = (data: {
       console.error("Web Share API not supported in your browser");
     }
   };
-  const isNativeShareSupported = !!navigator.share;
 
   return {
     share,

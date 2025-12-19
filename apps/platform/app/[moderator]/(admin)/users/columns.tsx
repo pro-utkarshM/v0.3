@@ -96,13 +96,13 @@ export const columns: ColumnDef<UserType>[] = [
     },
   },
   {
-    accessorKey: "role", // Assuming 'role' or 'other_roles' is where permissions live
+    accessorKey: "role", // Assuming 'role' or 'role' is where permissions live
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Role" />
     ),
     cell: ({ row }) => {
       // Logic to determine primary role display
-      const roles = (row.original as any).other_roles || [];
+      const roles = (row.original as any).role || [];
       const primaryRole = (row.original as any).role || roles[0] || "user";
 
       return (

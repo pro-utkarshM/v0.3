@@ -144,31 +144,16 @@ export const betterAuthOptions = {
         input: false,
         defaultValue: "user",
       },
-      other_roles: {
-        type: "string[]",
-        required: true,
-        input: true,
-      },
-      other_emails: {
-        type: "string[]",
-        required: false,
-        input: false,
-      },
       gender: {
         type: "string",
-        input: true,
+        input: false,
         defaultValue: "not_specified",
       },
       username: {
         type: "string",
         required: true,
         unique: true,
-        input: true,
-      },
-      department: {
-        type: "string",
-        required: true,
-        input: true,
+        input: false,
       },
     },
   },

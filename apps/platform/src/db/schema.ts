@@ -1,9 +1,7 @@
 export {
   accounts,
-  departmentNameEnum,
   sessions,
   userGenderEnum,
-  userRolesEnum,
   users,
   verifications,
 } from "./schema/auth-schema";

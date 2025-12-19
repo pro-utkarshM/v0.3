@@ -95,11 +95,11 @@ export function checkAuthorization(
   // 2. Invalid role
   if (!dashboardRoutes.includes(route_path)) {
     // console.log("Invalid moderator role:", route_path);
-    // const destination = session.user.other_roles.includes("student")
+    // const destination = session.user.role.includes("student")
     //   ? "/"
-    //   : session.user.other_roles[0] || "/";
+    //   : session.user.role[0] || "/";
     const destination =
-      session.user.other_roles?.length > 0 ? session.user.other_roles[0] : "/";
+      session.user.role?.length > 0 ? session.user.role : "/";
     return {
       redirect: { destination },
       authorized: false,
@@ -109,8 +109,7 @@ export function checkAuthorization(
 
   // 4. Authorized check
   if (
-    session.user.other_roles
-      .map((role) => role.toLowerCase())
+    session.user.role
       .includes(route_path.toLowerCase()) ||
     session.user.role.toLowerCase() === route_path.toLowerCase()
   ) {

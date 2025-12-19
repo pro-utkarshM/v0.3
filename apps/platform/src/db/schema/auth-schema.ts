@@ -1,29 +1,8 @@
 import { InferSelectModel } from "drizzle-orm";
 import { boolean, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { nanoid } from "nanoid";
-import { DEPARTMENTS } from "~/constants/core.departments";
 import { houses } from "./house-schema";
 
-export const departmentNameEnum = pgEnum("department_name_enum", [
-  "Staff",
-  ...DEPARTMENTS,
-] as [string, ...string[]]);
-
-export const userRolesEnum = pgEnum("user_roles_enum", [
-  "admin",
-  "student",
-  "faculty",
-  "hod",
-  "cr",
-  "staff",
-  "assistant",
-  "mmca",
-  "warden",
-  "librarian",
-  "assistant_warden",
-  "chief_warden",
-  "guard",
-] as [string, ...string[]]);
 
 export const userGenderEnum = pgEnum("user_gender_enum", [
   "male",
@@ -42,17 +21,17 @@ export const users = pgTable("users", {
   createdAt: timestamp("createdAt").notNull(),
   updatedAt: timestamp("updatedAt").notNull(),
   role: text("role").notNull().default("user"),
-  other_roles: userRolesEnum("other_roles").array().notNull().default([]),
-  other_emails: text("other_emails").array().notNull().default([]),
   gender: userGenderEnum("gender")
     .notNull()
     .default("not_specified")
     .$default(() => "not_specified"),
-  department: departmentNameEnum("department").notNull(),
   house: text("house").references(() => houses.name),
   hasCompletedSorting: boolean("hasCompletedSorting")
     .notNull()
     .default(false),
+    banned: boolean("banned").default(false),
+  banReason: text("ban_reason"),
+  banExpires: timestamp("ban_expires"),
 });
 
 export type UserType = InferSelectModel<typeof users>;

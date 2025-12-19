@@ -15,7 +15,6 @@ type LayoutProps = Readonly<{
 export default async function Layout({ children }: LayoutProps) {
 
   const session = await getSession();
-  ;
 
   return (
     <div className="flex flex-1 flex-col justify-center min-h-svh min-w-full z-0">

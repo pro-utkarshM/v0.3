@@ -41,11 +41,11 @@ export default function ProfileDropdown({ user }: ProfileDropdownProps) {
     ...(user.role === "admin"
       ? [{ Icon: ShieldAlert, href: "/admin", title: "Admin Console" }]
       : []),
-    ...user.other_roles.map((role) => ({
+      {
       Icon: LayoutGrid,
-      href: `/${role}`,
-      title: `${changeCase(role, "title")}`,
-    })),
+      href: `/${user.role}`,
+      title: `${changeCase(user.role, "title")}`,
+    },
   ];
 
   return (
@@ -84,16 +84,10 @@ export default function ProfileDropdown({ user }: ProfileDropdownProps) {
           <h4 className="font-semibold tracking-wide text-base">{user.name}</h4>
           <p className="text-muted-foreground font-medium text-xs font-mono">
             {user.email}
-            <Link
-              href={`/results/${user.username}`}
-              className="text-primary hover:underline ml-2 text-xs"
-            >
-              View Result
-              <ArrowTopRightIcon className="inline-block size-3 ml-1" />
-            </Link>
+    
           </p>
           <p>
-            <Badge size="sm" className="font-mono whitespace-nowrap">{user.department || "Student"}</Badge>
+            <Badge size="sm" className="font-mono whitespace-nowrap">{user.role || "BUilder"}</Badge>
           </p>
         </div>
       </div>

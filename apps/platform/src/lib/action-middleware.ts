@@ -69,7 +69,7 @@ type ValidatedActionWithRolesFn<S extends z.ZodType<any, any>, T, P> = (
 export function validatedActionWithRoles<S extends z.ZodType<any, any>, T, P>(
   schema: S,
   allowedRoles: Array<
-    Session["user"]["other_roles"][number] | Session["user"]["role"]
+    Session["user"]["role"] | Session["user"]["role"]
   >,
   action: ValidatedActionWithRolesFn<S, T, P>
 ) {
@@ -81,7 +81,7 @@ export function validatedActionWithRoles<S extends z.ZodType<any, any>, T, P>(
     if (!session) throw new Error("User is not authenticated");
     if (
       !allowedRoles.includes(session.user.role) &&
-      !allowedRoles.some((role) => session.user.other_roles.includes(role))
+      !allowedRoles.some((role) => session.user.role.includes(role))
     )
       throw new Error("User does not have required role");
 

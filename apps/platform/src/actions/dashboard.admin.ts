@@ -544,7 +544,7 @@ export async function getUsersByRole(): Promise<
   //     count: sql<number>`COUNT(*)`,
   //   })
   //   .from(
-  //     // Create a derived table that combines main role and other_roles
+  //     // Create a derived table that combines main role and role
   //     db
   //       .select({
   //         role_value: users.role,
@@ -553,10 +553,10 @@ export async function getUsersByRole(): Promise<
   //       .unionAll(
   //         db
   //           .select({
-  //             role_value: sql<string>`unnest(${users.other_roles})::text`,
+  //             role_value: sql<string>`unnest(${users.role})::text`,
   //           })
   //           .from(users)
-  //           .where(sql`array_length(${users.other_roles}, 1) > 0`)
+  //           .where(sql`array_length(${users.role}, 1) > 0`)
   //       )
   //       .as("all_roles")
   //   )
@@ -567,7 +567,6 @@ export async function getUsersByRole(): Promise<
   const allUsers = await db
     .select({
       role: users.role,
-      other_roles: users.other_roles,
     })
     .from(users)
     .execute();
@@ -579,11 +578,11 @@ export async function getUsersByRole(): Promise<
     if (user.role !== "user")
       roleCounts[user.role] = (roleCounts[user.role] || 0) + 1;
 
-    // Count each role in other_roles (converting enum to string)
-    user.other_roles.forEach((otherRole) => {
-      const roleString = String(otherRole); // Convert enum to string
-      roleCounts[roleString] = (roleCounts[roleString] || 0) + 1;
-    });
+    // Count each role in role (converting enum to string)
+    // user.role.forEach((otherRole) => {
+    //   const roleString = String(otherRole); // Convert enum to string
+    //   roleCounts[roleString] = (roleCounts[roleString] || 0) + 1;
+    // });
   }
 
   return Object.entries(roleCounts).map(([role, count]) => ({ role, count }));
@@ -592,15 +591,12 @@ export async function getUsersByRole(): Promise<
 export async function getUsersByDepartment(): Promise<
   { department: string; count: number }[]
 > {
-  const result = await db
-    .select({
-      department: users.department,
-      count: sql<number>`COUNT(*)`,
-    })
-    .from(users)
-    .groupBy(users.department)
-    .execute();
-  return result;
+
+  return {
+    department: "Not Implemented",
+    count: 0,
+  } as unknown as { department: string; count: number }[];
+  
 }
 
 export async function getUsersByGender(): Promise<Record<string, number>> {
@@ -784,15 +780,9 @@ export async function userEngagement(): Promise<{
 export async function departmentWiseEngagement(): Promise<
   { department: string; sessionCount: number }[]
 > {
-  const result = await db
-    .select({
-      department: users.department,
-      sessionCount: sql<number>`COUNT(${sessions.id})`,
-    })
-    .from(users)
-    .leftJoin(sessions, eq(users.id, sessions.userId))
-    .groupBy(users.department)
-    .orderBy(desc(sql`COUNT(${sessions.id})`))
-    .execute();
-  return result;
+
+  return {
+    department: "Not Implemented",
+    sessionCount: 0,
+  } as unknown as { department: string; sessionCount: number }[];
 }

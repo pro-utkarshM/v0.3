@@ -75,15 +75,15 @@ export async function getUsersByRole(role: string): Promise<User[]> {
 export async function getUsersByDepartment(
   department: string
 ): Promise<User[]> {
-  return db.select().from(users).where(eq(users.department, department));
+  return db.select().from(users).where(eq(users.username, department));
 }
 
-// Get users with specific roles (array match for `other_roles`)
+// Get users with specific roles (array match for `role`)
 export async function getUsersByOtherRoles(role: string): Promise<User[]> {
   return db
     .select()
     .from(users)
-    .where(sql`${role} = ANY(${users.other_roles})`);
+    .where(sql`${role} = ANY(${users.role})`);
 }
 
 // delete user resources

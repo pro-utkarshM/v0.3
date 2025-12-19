@@ -73,8 +73,6 @@ const formSchema = z.object({
   
   // Access
   role: z.string(), // Primary Role
-  other_roles: z.array(z.string()), // Secondary Roles
-  other_emails: z.array(emailSchema).optional(),
 });
 
 // ----------------------------------------------------------------------
