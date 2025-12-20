@@ -53,11 +53,10 @@ export default async function AdminDashboard({ searchParams }: AdminDashboardPro
     ]
   )
 
-  const [usersByGender, usersByRole, usersByDepartment, activeSessions] =
+  const [usersByGender, usersByRole, activeSessions] =
     await Promise.all([
       getUsersByGender(),
       getUsersByRole(),
-      getUsersByDepartment(),
       getActiveSessions(),
     ]);
 
@@ -276,37 +275,7 @@ export default async function AdminDashboard({ searchParams }: AdminDashboardPro
           </StatsCard>
 
           {/* Users by Department Card */}
-          <StatsCard
-            className="col-span-1   @4xl:col-span-5"
-            title="Users by Department"
-            Icon={<Network className="inline-block mr-2 size-4" />}
-          >
-            <RoundedPieChart
-              data={usersByDepartment.map((dept, index) => ({
-                department: getDepartmentCode(dept.department) ?? dept.department,
-                count: Number.parseInt(dept.count as unknown as string, 10),
-                fill: `var(--chart-${index + 1})`
-              }))}
 
-              config={{
-                ...DEPARTMENTS_LIST.reduce<
-                  Record<string, { label: string; color: string }>
-                >((acc, dept, idx) => {
-                  acc[dept.code] = {
-                    label: getDepartmentName(dept.code) ?? changeCase(dept.code, "title"),
-                    color: `var(--chart-${idx + 1})`,
-                  };
-                  return acc;
-                }, {}),
-              }}
-              dataKey="count"
-              nameKey="department"
-            />
-
-            <p className="text-xs text-muted-foreground">
-              Total Users per Department
-            </p>
-          </StatsCard>
           {/* platformDBStats */}
 
         </div>

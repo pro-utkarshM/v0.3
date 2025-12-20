@@ -66,7 +66,6 @@ export default function SignUpForm() {
         onResponse: () => setIsLoading(false),
         onSuccess: () => {
           toast.success("Account created! Please verify your email.");
-          router.push("/auth/verify-mail"); // Or handle redirection
         },
         onError: (ctx) => {
           toast.error(ctx.error.message);
