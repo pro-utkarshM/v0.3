@@ -103,8 +103,8 @@ Nerdy Network transforms the traditional college experience into a gamified buil
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/pro-utkarshM/v0.3.git
-cd v0.3
+git clone https://github.com/nerdynetco/website.git
+cd website
 ```
 
 2. **Install dependencies**
@@ -145,16 +145,6 @@ npm run dev
 ```
 
 Visit `http://localhost:3000` to see the app!
-
-## Documentation
-
-Comprehensive documentation is available in the `/docs` directory:
-
-- **[Implementation Summary](./docs/IMPLEMENTATION_SUMMARY.md)** - Complete feature implementation status
-- **[Project Status](./docs/PROJECT_STATUS.md)** - Current progress and roadmap
-- **[What's Left](./WHATS_LEFT.md)** - Remaining features to implement
-- **[Cleanup Summary](./CLEANUP_SUMMARY.md)** - Recent codebase cleanup details
-- **[Feature Analysis](./IRRELEVANT_FEATURES_ANALYSIS.md)** - Removed features documentation
 
 ## Current Status
 
@@ -208,7 +198,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 - **Website**: [nerdynet.co](https://nerdynet.co)
 - **Platform**: [app.nerdynet.co](https://app.nerdynet.co)
-- **GitHub**: [pro-utkarshM/v0.3](https://github.com/pro-utkarshM/v0.3)
+- **GitHub**: [nerdynetco](https://github.com/nerdynetco/website)
 
 ---
 

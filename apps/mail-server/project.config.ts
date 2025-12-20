@@ -1,6 +1,6 @@
 
 
-export const APPLICATION_NAME = "Nerdy-Network";
+export const APPLICATION_NAME = "nerdy-network";
 export const ORG_DOMAIN = "nerdynet.co";
 export const ORG_NAME = "Nerdy Network";
 

@@ -81,7 +81,7 @@ export default function AboutPage() {
                     title="GitHub"
                     desc="Report bugs or contribute"
                     action="View Repo"
-                    href={appConfig.githubRepo || "https://github.com"}
+                    href={appConfig.githubRepo || "https://github.com/nerdynetco/website"}
                 />
                 <ContactCard 
                     icon={MessageSquare}

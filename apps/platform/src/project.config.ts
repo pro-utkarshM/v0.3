@@ -76,7 +76,7 @@ export const appConfig = {
       name: "Nerdy Network",
       url: "https://aadrika.nerdynet.co",
       image: "https://github.com/nerdynetco.png",
-      email: "me@nerdynet.co",
+      email: "aadrika@nerdynet.co",
     },
   ],
   githubRepo:

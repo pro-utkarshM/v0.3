@@ -17,13 +17,13 @@ import {
 const organization = {
   name: "Nerdy Network",
   tagline: "Think different",
-  logo: "https://nerdynet.co/assets/logo.svg",
+  logo: "https://nerdynet.co/assets/logo-square.png",
   address: "Nerdy Network, 1234 Street Name, City, State, Zip",
   url: "https://nerdynet.co",
   email: "contact@nerdynet.co",
   phone: "+1 (123) 456-7890",
   socials:{
-    twitter: "https://twitter.com/nerdynetco",
+    twitter: "https://x.com/thenerdynet",
     linkedin: "https://linkedin.com/in/nerdy-network",
     instagram: "https://instagram.com/the_nerdy_network",
     github: "https://github.com/nerdynetco"

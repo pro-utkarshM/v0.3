@@ -26,7 +26,7 @@ This section guides you through submitting a bug report for College Ecosystem. F
 
 Before creating a bug report, please check if an issue already exists.
 
-- **Ensure the bug was not already reported** by searching on GitHub under [Issues](https://github.com/your-repo/nerdynet/issues).
+- **Ensure the bug was not already reported** by searching on GitHub under [Issues](https://github.com/nerdynetco/website/issues).
 - **If you're unable to find an open issue addressing the problem,** open a new one.
 
 ### Suggesting Enhancements
@@ -35,7 +35,7 @@ This section guides you through submitting an enhancement suggestion for College
 
 Before creating an enhancement suggestion, please check if an issue already exists.
 
-- **Ensure the enhancement was not already suggested** by searching on GitHub under [Issues](https://github.com/your-repo/nerdynet/issues).
+- **Ensure the enhancement was not already suggested** by searching on GitHub under [Issues](https://github.com/nerdynetco/website/issues).
 - **If you're unable to find an open issue addressing the suggestion,** open a new one.
 
 ### Design Icons and Layouts
@@ -91,8 +91,8 @@ To get started with the College Ecosystem on your local machine, follow these st
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/nerdynet/nerdynet.git
-cd nerdynet
+git clone https://github.com/nerdynetco/website.git
+cd website
 ```
 
 ### Install Dependencies
