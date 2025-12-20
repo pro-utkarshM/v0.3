@@ -3,6 +3,7 @@ import Footer from "@/components/common/footer";
 import GithubBanner from "@/components/common/github-banner";
 import Navbar from "@/components/common/navbar";
 import { getSession } from "~/auth/server";
+import { LayoutClient } from "./layout.client";
 
 
 
@@ -32,6 +33,7 @@ export default async function Layout({ children }: LayoutProps) {
       </div>
       <div className="relative flex-1 mx-auto max-w-(--max-app-width) w-full h-full min-h-screen @container flex-col items-center justify-start space-y-4 pb-8">
         {children}
+        <LayoutClient/>
         <GithubBanner />
       </div>
       <div className="absolute inset-0 -z-10">

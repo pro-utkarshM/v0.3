@@ -44,7 +44,7 @@ export const betterAuthOptions = {
     requireEmailVerification: true,
     sendResetPassword: async ({ user, url, token }, request) => {
       // const verification_url = `${baseUrl}${RESET_PASSWORD_PATH_PREFIX}${token}`;
-      const reset_link = new URL(process.env.BASE_MAIL_SERVER_URL as string);
+      const reset_link = new URL(process.env.BETTER_AUTH_URL as string);
       reset_link.pathname = RESET_PASSWORD_PATH_PREFIX;
       reset_link.searchParams.set("token", token);
 
@@ -82,7 +82,7 @@ export const betterAuthOptions = {
   emailVerification: {
     sendOnSignUp: true,
     sendVerificationEmail: async ({ user, url, token }, request) => {
-      const verification_url = new URL(process.env.BASE_MAIL_SERVER_URL as string);
+      const verification_url = new URL(process.env.BETTER_AUTH_URL as string);
       verification_url.pathname = VERIFY_EMAIL_PATH_PREFIX;
       verification_url.searchParams.set("token", token);
       try {
@@ -99,7 +99,7 @@ export const betterAuthOptions = {
               platform_name: appConfig.name,
               name: user.name,
               email: user.email,
-              verification_url: baseUrl.toString(),
+              verification_url: verification_url.toString(),
             },
           }),
         });
@@ -122,8 +122,21 @@ export const betterAuthOptions = {
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
       mapProfileToUser: async (profile) => {
-        return {
+        const userData = {
+          email: profile.email,
+          name: profile.name,
+          username: profile.email.split("@")[0] + "_google",
           image: profile.picture,
+          role: "user",
+          displayUsername: profile.email.split("@")[0] + "_google",
+          house:null,
+          gender:"not_specified",
+          emailVerified: true,
+          hasCompletedSorting: false,
+          
+        };
+        return {
+          ...userData
         };
       },
     },
@@ -155,6 +168,16 @@ export const betterAuthOptions = {
         unique: true,
         input: false,
       },
+      house:{
+        type: "string",
+        input: false,
+        defaultValue: null,
+      },
+      hasCompletedSorting:{
+        type: "boolean",
+        input: false,
+        defaultValue: false,
+      }
     },
   },
   session: {

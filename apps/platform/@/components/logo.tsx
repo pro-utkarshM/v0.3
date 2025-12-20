@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import { appConfig, orgConfig } from "~/project.config";
 
 
@@ -65,7 +66,8 @@ export function ApplicationInfo({
 }) {
   return (
     <div className={cn("inline-flex gap-2", className)}>
-      <ApplicationSvgLogo className={cn("size-8", imgClassName)} aria-label={orgConfig.shortName} />
+      {/* <ApplicationSvgLogo className={cn("size-8", imgClassName)} aria-label={orgConfig.shortName} /> */}
+      <Image src="/logo-square.png" alt={appConfig.name} width={32} height={32} />
       <div className="grid flex-1 text-left text-sm leading-tight">
         <span className="truncate font-semibold">{appConfig.name}</span>
         <span className="truncate text-xs text-muted-foreground font-medium">
@@ -84,7 +86,7 @@ export function ApplicationSquareLogo({
 }) {
   return (
     <Avatar className={cn("inline-flex gap-2 size-8 rounded-lg", className)}>
-      <AvatarImage src="/logo-square.webp" alt={appConfig.name} />
+      <AvatarImage src="/logo-square.png" alt={appConfig.name} />
       <AvatarFallback className="flex items-center justify-center rounded-lg text-3xl font-bold text-center relative bg-gradient-to-r from-primary to-sky-500 bg-clip-text text-transparent hover:from-sky-500 hover:to-primary whitespace-nowrap">
         {orgConfig.shortName.charAt(0).toUpperCase()}
       </AvatarFallback>

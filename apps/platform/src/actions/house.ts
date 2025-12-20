@@ -114,6 +114,7 @@ export async function getHouseMembers(houseName: string, limit: number = 20) {
         image: users.image,
         role: users.role,
         createdAt: users.createdAt,
+        house: users.house,
       })
       .from(users)
       .where(eq(users.house, houseName))

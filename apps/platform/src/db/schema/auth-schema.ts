@@ -1,4 +1,4 @@
-import { InferSelectModel } from "drizzle-orm";
+import { InferSelectModel, SQL } from "drizzle-orm";
 import {
   boolean,
   pgEnum,
@@ -54,7 +54,8 @@ export const users = pgTable("users", {
     .default("not_specified"),
 
   house: text("house")
-    .references(() => houses.name),
+    .references(() => houses.name)
+    .default(null as unknown as SQL<string | null>),
 
   hasCompletedSorting: boolean("hasCompletedSorting")
     .notNull()
@@ -65,9 +66,9 @@ export const users = pgTable("users", {
     .notNull()
     .default(false),
 
-  banReason: text("ban_reason"),
-  banExpires: timestamp("ban_expires"),
-
+  banReason: text("ban_reason").default("not_specified"),
+banExpires: timestamp("ban_expires").defaultNow()
+    .default(null as unknown as SQL<Date | null>),
   /* ---- Timestamps ---- */
   createdAt: timestamp("createdAt")
     .notNull()
